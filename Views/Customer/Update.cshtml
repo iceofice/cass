@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+
+@{
+    Layout = "_AppLayout";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Project Name</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Contact Start -->
+<div class="container-fluid pt-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Update Your Project</span></h2>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col-lg-2 mb-5">
+        </div>
+        <div class="col-lg-8 mb-5">
+            <div class="contact-form">
+                <div id="success"></div>
+                <button class="btn btn-primary py-2 px-4 my-4">
+                    Mark As Finish
+                </button>
+                <p>Taken By: <a style="color:#d19c97!important;" asp-controller="Customer" asp-action="Update">Constructor</a></p>
+                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                    <div class="control-group">
+                        <input type="text" class="form-control" id="name" placeholder="Project Name"
+                               required="required" data-validation-required-message="Please enter a name" />
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group">
+                        <textarea class="form-control" rows="6" id="location" placeholder="Location"
+                                  required="required"></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group">
+                        <input type="number" class="form-control" id="price" placeholder="Price"
+                               required="required" data-validation-required-message="Please enter a price" />
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group">
+                        <textarea class="form-control" rows="6" id="description" placeholder="Description"
+                                  required="required"></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <input type="file" id="image"
+                           required="required" />
+                    <p class="help-block text-danger"></p>
+                    <div>
+                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
+                            Update Project
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-2 mb-5">
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
