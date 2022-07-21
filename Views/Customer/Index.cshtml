@@ -6,36 +6,78 @@
     Layout = "_AppLayout";
 }
 
-<div id="content" class="site-content">
-    <div id="primary" class="content-area column full">
-        <main id="main" class="site-main">
-            <article id="post-39" class="post-39 page type-page status-publish hentry">
-
-                <div class="entry-content">
-                    <div class="wpcmsdev-columns">
-                        <div class="column full">
-                            <h4>Land Details</h4>
-
-                            <form class="wpcf7" method="post" action="contact.php" id="contactform">
-                                <div class="form">
-                                    <p><input type="text" name="name" placeholder="Name *"></p>
-                                    <p><input type="text" name="email" placeholder="E-mail Address *"></p>
-                                    <p><textarea name="comment" rows="3" placeholder="Message *"></textarea></p>
-                                    <input type="submit" id="submit" class="clearfix btn" value="Send">
-                                </div>
-                            </form>
-                            <div class="done">
-                                Your message has been sent. Thank you!
-                            </div>
-
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Welcome back!</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Project</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Constructor</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    <tr>
+                        <td class="align-middle"><img src="https://picsum.photos/200/200" alt="" style="height: 50px;"> </td>
+                        <td class="align-middle"><a class="nav-link" asp-controller="Customer" asp-action="Update">Colorful Stylish Shirt</a></td>
+                        <td class="align-middle">$150</td>
+                        <td class="align-middle">Completed</td>
+                        <td class="align-middle">No Constructor yet.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <form name="sentMessage" id="contactForm">
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Add Project</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="name" placeholder="Project Name"
+                                   required="required" data-validation-required-message="Please enter a name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <textarea class="form-control" rows="6" id="location" placeholder="Location"
+                                      required="required"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <input type="number" class="form-control" id="price" placeholder="Price"
+                                   required="required" data-validation-required-message="Please enter a price" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <textarea class="form-control" rows="6" id="description" placeholder="Description"
+                                      required="required"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        Project Picture
+                        <div class="control-group">
+                            <input type="file" class="form-control" id="image"
+                                   required="required" />
+                            <p class="help-block text-danger"></p>
                         </div>
                     </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <button type="submit" class="btn btn-block btn-primary my-3 py-3">Add Project</button>
+                    </div>
                 </div>
-                <!-- .entry-content -->
-            </article>
-        </main>
-        <!-- #main -->
+            </form>
+        </div>
     </div>
-    <!-- #primary -->
 </div>
-
+<!-- Cart End -->

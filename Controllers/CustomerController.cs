@@ -8,5 +8,25 @@ namespace CASS___Construction_Assistance.Controllers
         {
             return View();
         }
+
+        public IActionResult Update()
+        {
+            return View();
+        }
+        
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }
