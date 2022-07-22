@@ -35,8 +35,8 @@ namespace CASS___Construction_Assistance.Controllers
             return keyList;
         }
 
-        private readonly CASSContext _CassContext;
-        public ConstructorController(CASSContext context)
+        private readonly CassContext _CassContext;
+        public ConstructorController(CassContext context)
         {
             _CassContext = context;
         }

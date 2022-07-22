@@ -25,6 +25,7 @@ namespace CASS___Construction_Assistance
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddDbContext<CassContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("CassContext")));

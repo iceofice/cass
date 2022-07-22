@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CASS___Construction_Assistance.Data
 {
-    public class CASSContext : DbContext
+    public class CassContext : DbContext
     {
-        public CASSContext(DbContextOptions<CASSContext> options)
+        public CassContext(DbContextOptions<CassContext> options)
             : base(options)
         {
         }
