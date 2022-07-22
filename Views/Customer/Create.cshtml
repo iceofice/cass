@@ -1,0 +1,52 @@
+﻿@model CASS___Construction_Assistance.Models.Project
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Create New Project</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-4 mb-5"></div>
+        <div class="col-lg-4 mb-5">
+            <form asp-action="Create" novalidate>
+                <div class="control-group">
+                    <input asp-for="Name" class="form-control" placeholder="Project Name" />
+                    <span asp-validation-for="Name" class="help-block text-danger"></span>
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div class="control-group">
+                    <textarea asp-for="Location" class="form-control" rows="6" id="location" placeholder="Location"></textarea>
+                    <span asp-validation-for="Location" class="help-block text-danger"></span>
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div class="control-group">
+                    <input asp-for="Price" type="number" class="form-control" id="price" placeholder="Price" />
+                    <span asp-validation-for="Price" class="help-block text-danger"></span>
+                    <p class="help-block text-danger"></p>
+                </div>
+                <div class="control-group">
+                    <textarea asp-for="Description" class="form-control" rows="6" id="description" placeholder="Description"></textarea>
+                    <span asp-validation-for="Description" class="help-block text-danger"></span>
+                    <p class="help-block text-danger"></p>
+                </div>
+                <input type="file" id="image" />
+                <p class="help-block text-danger"></p>
+                <div>
+                    <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
+                        Create Project
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4 mb-5"></div>
+    </div>
+</div>
+

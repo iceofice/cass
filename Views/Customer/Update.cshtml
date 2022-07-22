@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CASS___Construction_Assistance.Models.Project
+
+@{
     ViewData["Title"] = "Update";
 }
 
@@ -24,39 +26,55 @@
         <div class="col-lg-8 mb-5">
             <div class="contact-form">
                 <div id="success"></div>
-                <button class="btn btn-primary py-2 px-4 my-4">
-                    Mark As Finish
-                </button>
+                @if (Model.Status.Equals("Taken"))
+                {
+                    <form class="mt-5" asp-action="UpdateStatus">
+                        <input type="hidden" asp-for="Id" />
+                        <button class="btn btn-primary py-2 px-4 my-4" type="submit">
+                            Mark As Finish
+                        </button>
+                    </form>
+                }
+
+
+                @if (!Model.Status.Equals("Pending"))
+                {
                 <p>Taken By: <a style="color:#d19c97!important;" asp-controller="Customer" asp-action="Update">Constructor</a></p>
-                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                }
+                <form asp-action="Update" novalidate>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Status" />
                     <div class="control-group">
-                        <input type="text" class="form-control" id="name" placeholder="Project Name"
-                               required="required" data-validation-required-message="Please enter a name" />
+                        <input asp-for="Name" class="form-control" placeholder="Project Name" />
+                        <span asp-validation-for="Name" class="help-block text-danger"></span>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
-                        <textarea class="form-control" rows="6" id="location" placeholder="Location"
-                                  required="required"></textarea>
+                        <textarea asp-for="Location" class="form-control" rows="6" id="location" placeholder="Location"></textarea>
+                        <span asp-validation-for="Location" class="help-block text-danger"></span>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
-                        <input type="number" class="form-control" id="price" placeholder="Price"
-                               required="required" data-validation-required-message="Please enter a price" />
+                        <input asp-for="Price" type="number" class="form-control" id="price" placeholder="Price" />
+                        <span asp-validation-for="Price" class="help-block text-danger"></span>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
-                        <textarea class="form-control" rows="6" id="description" placeholder="Description"
-                                  required="required"></textarea>
+                        <textarea asp-for="Description" class="form-control" rows="6" id="description" placeholder="Description"></textarea>
+                        <span asp-validation-for="Description" class="help-block text-danger"></span>
                         <p class="help-block text-danger"></p>
                     </div>
-                    <input type="file" id="image"
-                           required="required" />
+                    <input type="file" id="image" />
                     <p class="help-block text-danger"></p>
                     <div>
-                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
+                        <button class="btn btn-primary py-2 px-4" type="submit">
                             Update Project
                         </button>
                     </div>
+                </form>
+                <form class="mt-5" asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
                 </form>
             </div>
         </div>
