@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CASS___Construction_Assistance.Migrations
 {
-    [DbContext(typeof(CassContext))]
-    [Migration("20220722094518_updateProjectTable")]
-    partial class updateProjectTable
+    [DbContext(typeof(CASSContext))]
+    [Migration("20220722094327_createProjectTable")]
+    partial class createProjectTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,9 +41,6 @@ namespace CASS___Construction_Assistance.Migrations
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

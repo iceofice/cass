@@ -3,16 +3,14 @@ using CASS___Construction_Assistance.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CASS___Construction_Assistance.Migrations
 {
-    [DbContext(typeof(CassContext))]
-    [Migration("20220722094518_updateProjectTable")]
-    partial class updateProjectTable
+    [DbContext(typeof(CASSContext))]
+    partial class CASSContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

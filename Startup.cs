@@ -28,6 +28,7 @@ namespace CASS___Construction_Assistance
 
             services.AddDbContext<CassContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("CassContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +45,7 @@ namespace CASS___Construction_Assistance
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -52,6 +54,7 @@ namespace CASS___Construction_Assistance
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
