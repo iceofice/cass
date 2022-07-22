@@ -21,5 +21,7 @@ namespace CASS___Construction_Assistance.Models
         public string Status { get; set; }
 
         public string Constructor_Id { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

@@ -41,9 +41,11 @@
                 {
                 <p>Taken By: <a style="color:#d19c97!important;" asp-controller="Customer" asp-action="Update">Constructor</a></p>
                 }
-                <form asp-action="Update" novalidate>
+                <form asp-action="Update" enctype="multipart/form-data">
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="Status" />
+                    <input type="hidden" asp-for="Constructor_Id" />
+                    <input type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
                     <div class="control-group">
                         <input asp-for="Name" class="form-control" placeholder="Project Name" />
                         <span asp-validation-for="Name" class="help-block text-danger"></span>
@@ -64,7 +66,7 @@
                         <span asp-validation-for="Description" class="help-block text-danger"></span>
                         <p class="help-block text-danger"></p>
                     </div>
-                    <input type="file" id="image" />
+                    <input type="file" id="images" name="images" />
                     <p class="help-block text-danger"></p>
                     <div>
                         <button class="btn btn-primary py-2 px-4" type="submit">
