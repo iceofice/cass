@@ -25,9 +25,10 @@ namespace CASS___Construction_Assistance
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<CASSContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("CASSContext")));
-            services.AddRazorPages();
+
+            services.AddDbContext<CassContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("CassContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

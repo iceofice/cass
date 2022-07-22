@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CASS___Construction_Assistance.Migrations
 {
-    [DbContext(typeof(CASSContext))]
+    [DbContext(typeof(CassContext))]
     [Migration("20220722094518_updateProjectTable")]
     partial class updateProjectTable
     {
