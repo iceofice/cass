@@ -21,6 +21,7 @@ namespace CASS___Construction_Assistance.Areas.Identity
                         context.Configuration.GetConnectionString("CassUserContextConnection")));
 
                 services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<CassUserContext>();
             });
         }
