@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
 {
@@ -24,17 +25,28 @@ namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public SelectList RoleSelectList = new SelectList(
+        new List<SelectListItem>{
+            new SelectListItem { Selected =true, Text = "Select Role", Value = ""},
+            new SelectListItem { Selected =false, Text = "Admin", Value = "Admin"},
+            new SelectListItem { Selected =false, Text = "Customer", Value = "Customer"},
+            new SelectListItem { Selected =false, Text = "Constructor", Value = "Constructor"},
+        }, "Value", "Text", 1);
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, 
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -61,6 +73,10 @@ namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "User Role")]
+            public string UserRole { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -75,15 +91,35 @@ namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true };
+                var user = new User { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true,  Role = Input.UserRole};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    bool registerProcess = await _roleManager.RoleExistsAsync("Admin");
+					if (!registerProcess)
+					{
+                        await _roleManager.CreateAsync(new IdentityRole("Admin"));
+					}
+
+                    registerProcess = await _roleManager.RoleExistsAsync("Customer");
+                    if (!registerProcess)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Customer"));
+                    }
+
+                    registerProcess = await _roleManager.RoleExistsAsync("Constructor");
+                    if (!registerProcess)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Constructor"));
+                    }
+
+                    await _userManager.AddToRoleAsync(user, Input.UserRole);
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         //return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System;
 using Amazon.S3.Transfer;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace CASS___Construction_Assistance.Controllers
 {
@@ -42,6 +42,7 @@ namespace CASS___Construction_Assistance.Controllers
             _cassContext = context;
         }
 
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Index()
         {
             return View(await _cassContext.Project.ToListAsync());
