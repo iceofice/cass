@@ -17,7 +17,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../assets/vendor/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,15 +48,39 @@
 </head>
 
 <body>
-    
-        <img src="../assets/img/logo3.png"
-             alt="user-avatar"
-             class="d-block rounded"
-             height="100"
-             width="100"
-             id="uploadedAvatar" />
-   
     <!-- Layout wrapper -->
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="font-size: 18px">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index">
+                    <img src="../assets/vendor/logo.png"
+                         alt="user-avatar"
+                         class="d-block rounded"
+                         height="80"
+                         width="80"
+                         id="logo" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Customer">Customer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Constructor">Constructor</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="layout-demo-info">
+                    <a class="btn btn-primary nav-item nav-link" asp-area="" asp-controller="" asp-action="">Logout</a>
+                </div>
+            </div>
+        </nav>
     <div class="layout-wrapper layout-content-navbar layout-without-menu">
         <div class="layout-container">
             <!-- Layout container -->
@@ -64,10 +88,8 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <!-- Layout Demo -->
-
                         <div class="layout-demo-wrapper">
                             @RenderBody()
 
@@ -75,8 +97,6 @@
                         <!--/ Layout Demo -->
                     </div>
                     <!-- / Content -->
-
-
                     <div class="content-backdrop fade"></div>
                 </div>
                 <!-- Content wrapper -->
@@ -101,5 +121,10 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <footer class="border-top footer text-white" style="background-color: #6c6cfc">
+        <div class="container" style="text-align: center">
+            &copy; <b>2022</b> - CASS
+        </div>
+    </footer>
 </body>
 </html>

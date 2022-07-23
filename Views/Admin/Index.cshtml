@@ -16,26 +16,29 @@
                 <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between pb-0">
                         <div class="card-title mb-0">
+                            <span class="bg-label-primary">
+                                <i class="bx bx-user"></i>
+                            </span>
                             <h5 class="m-0 me-2">Order Statistics</h5>
                             <small class="text-muted">42.82k Total Sales</small>
                         </div>
-                        <div class="dropdown">
-                            <button class="btn p-0"
-                                    type="button"
-                                    id="orederStatistics"
-                                    data-bs-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
-                                <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                            </div>
-                        </div>
                     </div>
                     <div class="card-body">
+                        <div class="avatar flex-shrink-0 me-3">
+                            
+                        </div>
+                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <span class="avatar-initial rounded bg-label-primary">
+                                <i class="bx bx-user"></i>
+                            </span>
+                            <div class="me-2">
+                                <h6 class="mb-0">Electronic</h6>
+                                <small class="text-muted">Mobile, Earbuds, TV</small>
+                            </div>
+                            <div class="user-progress">
+                                <small class="fw-semibold">82.5k</small>
+                            </div>
+                        </div>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="d-flex flex-column align-items-center gap-1">
                                 <h2 class="mb-2">8,258</h2>
@@ -47,7 +50,7 @@
                             <li class="d-flex mb-4 pb-1">
                                 <div class="avatar flex-shrink-0 me-3">
                                     <span class="avatar-initial rounded bg-label-primary">
-                                        <i class="bx bx-mobile-alt"></i>
+                                        <i class="bx bx-user"></i>
                                     </span>
                                 </div>
                                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
@@ -289,12 +292,21 @@
     </div>
     <!-- / Content -->
 </div>
-
     <div class="navbar-nav flex-row">
-        <div class="layout-demo-info m-2">
-            <a class="btn btn-primary nav-item nav-link p-3" asp-controller="Admin" asp-action="Customer">Customer</a>
+        <div class="layout-demo-info mx-3 my-2">
+            <a class="btn btn-primary nav-item nav-link p-3" asp-controller="Admin" asp-action="Customer">
+                <img src="./assets/vendor/customer-logo.png"width="300" height="300" alt="customer-logo" style="object-fit: contain" />
+                <div style="font-size: 110%">
+                    <b>Customer</b>
+                </div>
+            </a>
         </div>
-        <div class="layout-demo-info m-2">
-            <a class="btn btn-primary nav-item nav-link p-3" asp-controller="Admin" asp-action="Constructor">Constructor</a>
+        <div class="layout-demo-info mx-3 my-2">
+            <a class="btn btn-primary nav-item nav-link p-3" asp-controller="Admin" asp-action="Constructor">
+                <img src="./assets/vendor/constructor-logo.png" width="300" height="300" alt="constructor-logo" style="object-fit: contain" />
+                <div style="font-size: 110%">
+                    <b>Constructor</b>
+                </div>
+            </a>
         </div>
     </div>
