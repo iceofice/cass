@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CASS___Construction_Assistance.Migrations.CassUser
+namespace CASS___Construction_Assistance.Migrations
 {
     [DbContext(typeof(CassUserContext))]
-    [Migration("20220723122105_updateUserTable")]
-    partial class updateUserTable
+    [Migration("20220723142702_addUserTable")]
+    partial class addUserTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -101,6 +101,8 @@ namespace CASS___Construction_Assistance.Controllers
 
                 project.Status = "Pending";
                 project.ImageUrl = ImageUrl;
+                project.Customer_Id = "xxxx";
+                project.Customer_Name = "mak u";
                 _cassContext.Add(project);
                 await _cassContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -118,10 +120,13 @@ namespace CASS___Construction_Assistance.Controllers
             var project = await _cassContext.Project
                 .FirstOrDefaultAsync(m => m.Id == id);
 
+
             if (project == null)
             {
                 return NotFound();
             }
+            return BadRequest(project);
+            Console.WriteLine(project.Name);
 
             return View(project);
         }

@@ -1,3 +1,4 @@
+using CASS___Construction_Assistance.Areas.Identity.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace CASS___Construction_Assistance.Models
@@ -21,6 +22,12 @@ namespace CASS___Construction_Assistance.Models
         public string Status { get; set; }
 
         public string Constructor_Id { get; set; }
+
+        public string Constructor_Name { get; set; }
+
+        public string Customer_Id { get; set; }
+
+        public string Customer_Name { get; set; }
 
         public string ImageUrl { get; set; }
     }
