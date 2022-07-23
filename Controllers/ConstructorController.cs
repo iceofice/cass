@@ -59,7 +59,6 @@ namespace CASS___Construction_Assistance.Controllers
             return View(await projects.ToListAsync());
         }
 
-        [Authorize(Roles = "Constructor")]
         public async Task<IActionResult> Shop(int? id)
         {
             //passing database
@@ -78,7 +77,6 @@ namespace CASS___Construction_Assistance.Controllers
             return View(project);
         }
 
-        [Authorize(Roles = "Constructor")]
         public async Task<IActionResult> Myproject()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -90,12 +88,9 @@ namespace CASS___Construction_Assistance.Controllers
             return View(await project.ToListAsync());
         }
 
-        [Authorize(Roles = "Constructor")]
-        public async Task<IActionResult> Profile()
+        public IActionResult Profile()
         {
-            var user = await _userManager.GetUserAsync(User);
-
-            return View(user);
+            return View();
         }
 
         public IActionResult CustomerProfile()
@@ -103,7 +98,6 @@ namespace CASS___Construction_Assistance.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Constructor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateStatus(int id)

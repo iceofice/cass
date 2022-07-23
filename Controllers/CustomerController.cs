@@ -62,14 +62,11 @@ namespace CASS___Construction_Assistance.Controllers
             return View(await project.ToListAsync());
 
         }
-
-        [Authorize(Roles = "Customer")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        [Authorize(Roles = "Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(List<IFormFile> images, [Bind("Id,Name,Location,Price,Description")] Project project)
@@ -129,7 +126,6 @@ namespace CASS___Construction_Assistance.Controllers
             return View(project);
         }
 
-        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null)
@@ -151,7 +147,6 @@ namespace CASS___Construction_Assistance.Controllers
             return View(project);
         }
 
-        [Authorize(Roles = "Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(String ImageUrl, List<IFormFile> images, int id, [Bind("Id,Status,Constructor_Id,Name,Location,Price,Description")] Project project)
@@ -232,7 +227,7 @@ namespace CASS___Construction_Assistance.Controllers
             return View(project);
         }
 
-        [Authorize(Roles = "Customer")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateStatus(int id)
@@ -246,7 +241,6 @@ namespace CASS___Construction_Assistance.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Customer")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -257,15 +251,22 @@ namespace CASS___Construction_Assistance.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Customer")]
-        public async Task<IActionResult> Profile()
-        {
-            var user = await _userManager.GetUserAsync(User);
 
-            return View(user);
+        public IActionResult Profile()
+        {
+            return View();
         }
 
-        [Authorize(Roles = "Customer")]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         private bool ProjectExists(int id)
         {
             return _cassContext.Project.Any(e => e.Id == id);
