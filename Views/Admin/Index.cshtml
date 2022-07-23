@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+
+
+<div class="content-wrapper">
+    <!-- Content -->
+    <h4 class="fw-bold mb-4"><span class="text-muted fw-light">Admin /</span> Dashboard</h4>
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+        <div class="row">
+            <!-- Customer Statistics -->
+            <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                        <div class="bg-label-primary p-2 rounded">
+                            <i class="bx bx-user bx-lg"></i>
+                        </div>
+                        <div class="card-title mb-0" style="text-align: end">
+                            <h4 class="m-0 me-2">Total Customer</h4>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="card-body py-0 mt-0 mb-3">
+                        <div class="d-flex flex-column align-items-center">
+                            <h2 class="mb-2">8,258</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Constructor Statistics -->
+            <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                        <div class="bg-label-primary p-2 rounded">
+                            <i class="bx bx-user bx-lg"></i>
+                        </div>
+                        <div class="card-title mb-0" style="text-align: end">
+                            <h4 class="m-0 me-2">Total Constructor</h4>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="card-body py-0 mt-0 mb-3">
+                        <div class="d-flex flex-column align-items-center">
+                            <h2 class="mb-2">8,258</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Project Statistics -->
+            <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                        <div class="bg-label-primary p-2 rounded">
+                            <i class="bx bx-task bx-lg"></i>
+                        </div>
+                        <div class="card-title mb-0" style="text-align: end">
+                            <h4 class="m-0 me-2">Total On-going Project</h4>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="card-body py-0 mt-0 mb-3">
+                        <div class="d-flex flex-column align-items-center">
+                            <h2 class="mb-2">8,258</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- / Content -->
+</div>
+<div class="navbar-nav flex-row">
+        <div class="layout-demo-info mx-3 my-2">
+            <a class="btn btn-primary nav-item nav-link p-3" asp-controller="Admin" asp-action="Customer">
+                <img src="./assets/vendor/customer-logo.png"width="300" height="300" alt="customer-logo" style="object-fit: contain" />
+                <div style="font-size: 110%">
+                    <b>Customer</b>
+                </div>
+            </a>
+        </div>
+        <div class="layout-demo-info mx-3 my-2">
+            <a class="btn btn-primary nav-item nav-link p-3" asp-controller="Admin" asp-action="Constructor">
+                <img src="./assets/vendor/constructor-logo.png" width="300" height="300" alt="constructor-logo" style="object-fit: contain" />
+                <div style="font-size: 110%">
+                    <b>Constructor</b>
+                </div>
+            </a>
+        </div>
+    </div>
+
+<style>
+
+</style>
