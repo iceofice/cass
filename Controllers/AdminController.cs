@@ -1,39 +1,37 @@
-﻿using CASS___Construction_Assistance.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CASS___Construction_Assistance.Controllers
 {
-/*    public class gg
+    public class users
     {
-        public int userId { get; set; }
-        public int id { get; set; }
-        public string title { get; set; }
-        public bool completed { get; set; }
-    }*/
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string ImageUrl { get; set; }
+        public string Role { get; set; }
+    }
     public class AdminController : Controller
     {
-        [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
-/*            List<gg> reservationList = new List<gg>();
+            List<List<users>> reservationList = new List<List<users>>();
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://0sarh7yv36.execute-api.us-east-1.amazonaws.com/prod"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    *//*reservationList = JsonConvert.DeserializeObject<List<gg>>(apiResponse);*//*
-                   
+                    reservationList = JsonConvert.DeserializeObject<List<List<users>>>(apiResponse);
+
                     return BadRequest(reservationList);
                 }
-            }*/
+            }
             return View();
         
         }
