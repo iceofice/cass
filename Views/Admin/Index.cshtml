@@ -1,4 +1,8 @@
-﻿@{
+﻿@using System.Collections.Generic;
+
+@model List<int>
+
+@{
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
 }
@@ -23,7 +27,7 @@
                     <hr class="mx-4" />
                     <div class="card-body py-0 mt-0 mb-3">
                         <div class="d-flex flex-column align-items-center">
-                            <h2 class="mb-2">8,258</h2>
+                            <h2 class="mb-2">@Model[0]</h2>
                         </div>
                     </div>
                 </div>
@@ -42,7 +46,7 @@
                     <hr class="mx-4" />
                     <div class="card-body py-0 mt-0 mb-3">
                         <div class="d-flex flex-column align-items-center">
-                            <h2 class="mb-2">5,925</h2>
+                            <h2 class="mb-2">@Model[1]</h2>
                         </div>
                     </div>
                 </div>
@@ -52,7 +56,7 @@
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between pb-0">
                         <div class="bg-label-primary p-2 rounded">
-                            <i class="bx bx-task bx-lg"></i>
+                            <i class="bx bx-refresh bx-lg"></i>
                         </div>
                         <div class="card-title mb-0" style="text-align: end">
                             <h4 class="m-0 me-2">Total On-going Project</h4>
@@ -61,7 +65,7 @@
                     <hr class="mx-4" />
                     <div class="card-body py-0 mt-0 mb-3">
                         <div class="d-flex flex-column align-items-center">
-                            <h2 class="mb-2">1,455</h2>
+                            <h2 class="mb-2">@Model[2]</h2>
                         </div>
                     </div>
                 </div>
@@ -76,7 +80,7 @@
         <a class="btn btn-primary nav-item nav-link p-3" asp-controller="Admin" asp-action="Customer">
             <img src="./assets/vendor/customer-logo.png" width="300" height="300" alt="customer-logo" style="object-fit: contain" />
             <div style="font-size: 110%">
-                <b>Customer</b>
+                <b>Manage Customer</b>
             </div>
         </a>
     </div>
@@ -84,7 +88,7 @@
         <a class="btn btn-primary nav-item nav-link p-3" asp-controller="Admin" asp-action="Constructor">
             <img src="./assets/vendor/constructor-logo.png" width="300" height="300" alt="constructor-logo" style="object-fit: contain" />
             <div style="font-size: 110%">
-                <b>Constructor</b>
+                <b>Manage Constructor</b>
             </div>
         </a>
     </div>

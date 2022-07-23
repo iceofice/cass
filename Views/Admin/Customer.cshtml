@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CASS___Construction_Assistance.Models.APIresult
+
+@{
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
 }
@@ -50,194 +52,86 @@
                     <table class="table" id="test1">
                         <thead>
                             <tr class="text-nowrap">
-                                <th>Id</th>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Status</th>
+                                <th>Phone</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
+                            @{
+                                var count = 0;
+                            }
+                            @foreach (var APIusers in Model.users)
+                            {
+                                count = count + 1;
+                                <tr>
+                                    <th scope="row">@count</th>
+                                    <td>@APIusers.Name</td>
+                                    <td>@APIusers.Email</td>
+                                    <td>@APIusers.Phone</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
             <!-- Registered Order -->
             <div class="tab-pane fade" id="navs-pills-justified-registered" role="tabpanel">
-                <h5 class="card-header">Constructor List</h5>
+                <h5 class="card-header">Registered Order</h5>
                 <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
                     <table class="table">
                         <thead>
                             <tr class="text-nowrap">
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>#</th>
+                                <th>Project Name</th>
+                                <th>Customer Name</th>
+                                <th>Constructor Name</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @{
+                                count = 0;
+                            }
+                            @foreach (var APIusers in Model.projects)
+                            {
+                                count = count + 1;
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
+                                <th scope="row">@count</th>
+                                <td>@APIusers.Name</td>
+                                <td>@APIusers.Customer_Name</td>
+                                <td>@APIusers.Constructor_Name</td>
+                                <td>@APIusers.Status</td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            </tr>
-                            </tr>
+                            }
+
                         </tbody>
                     </table>
                 </div>
             </div>
             <!-- Finished Order -->
             <div class="tab-pane fade" id="navs-pills-justified-finished" role="tabpanel">
-                <h5 class="card-header">Constructor List</h5>
-                <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto"> 
+                <h5 class="card-header">Finished Order</h5>
+                <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
                     <table class="table">
                         <thead>
-                            <tr class="text-nowrap">
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                        </tbody>
+                            <tbody>
+                                @{
+                                    count = 0;
+                                }
+                                @foreach (var APIusers in Model.finishedProjects)
+                                {
+                                    count = count + 1;
+                                    <tr>
+                                        <th scope="row">@count</th>
+                                        <td>@APIusers.Name</td>
+                                        <td>@APIusers.Customer_Name</td>
+                                        <td>@APIusers.Constructor_Name</td>
+                                        <td>@APIusers.Status</td>
+                                    </tr>
+                                }
+                            </tbody>
                     </table>
                 </div>
             </div>
@@ -267,7 +161,7 @@
                         <textarea type="text" id="nameLarge" class="form-control" placeholder="Enter Promo Message" rows="4"> </textarea>
                     </div>
                 </div>
-               
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -278,33 +172,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $("#GetallData").click(function () {
-            $("#tblPopulation").show();
-            $.ajax({
-                url: 'https://api.publicapis.org/entries',
-                dataType: "json",
-                type: "Get",
-                //contentType: 'application/json; charset=utf-8',
-                //data: {Id:Id},
-                success: function (data) {
-                    var tr;
-                    console.log(data.entries);
-                    for (var i = 0; i < data.entries.length; i++) {
-                        tr = tr + "<td>" + data[i].API + "</td>";
-                        tr = tr + "<td>" + data[i].Description + "</td>";
-                        tr = tr + "<td>" + data[i].Link + "</td>";
-                        tr = tr + "<td>" + data[i].Cors + "</td>";
-                    }
-                    $('#test1').append(tr);
-                    tblFormate();
-                },
-                error: function (xhr) {
-                    alert('No Valid Data');
-                }
-            });
-        });
-    })
-</script>
