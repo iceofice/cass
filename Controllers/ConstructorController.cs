@@ -88,9 +88,11 @@ namespace CASS___Construction_Assistance.Controllers
             return View(await project.ToListAsync());
         }
 
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+
+            return View(user);
         }
 
         public IActionResult CustomerProfile()
