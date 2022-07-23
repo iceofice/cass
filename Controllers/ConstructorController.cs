@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System;
 using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using CASS___Construction_Assistance.Areas.Identity.Data;
 
 namespace CASS___Construction_Assistance.Controllers
 {
@@ -20,6 +22,8 @@ namespace CASS___Construction_Assistance.Controllers
     {
         //declare constant to refer to the bucketname in S3
         const string bucketname = "construction-assistance";
+
+        private readonly UserManager<User> _userManager;
 
         private List<string> getCredentialInfo()
         {
@@ -37,9 +41,10 @@ namespace CASS___Construction_Assistance.Controllers
         }
 
         private readonly CassContext _CassContext;
-        public ConstructorController(CassContext context)
+        public ConstructorController(CassContext context, UserManager<User> userManager)
         {
             _CassContext = context;
+            _userManager = userManager;
         }
 
         [Authorize(Roles = "Constructor")]
@@ -74,8 +79,10 @@ namespace CASS___Construction_Assistance.Controllers
 
         public async Task<IActionResult> Myproject()
         {
+            var user = await _userManager.GetUserAsync(User);
+
             var project = from m in _CassContext.Project
-                          where m.Constructor_Id.Equals("2")
+                          where m.Constructor_Id.Equals(user.Id)
                           select m;
 
             return View(await project.ToListAsync());
@@ -96,9 +103,10 @@ namespace CASS___Construction_Assistance.Controllers
         public async Task<IActionResult> UpdateStatus(int id)
         {
             var project = await _CassContext.Project.FindAsync(id);
-
+            var user = await _userManager.GetUserAsync(User);
             project.Status = "Taken";
-            project.Constructor_Id = "2";
+            project.Constructor_Name = user.Name;
+            project.Constructor_Id = user.Id;
             _CassContext.Update(project);
             await _CassContext.SaveChangesAsync();
 

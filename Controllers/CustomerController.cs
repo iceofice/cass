@@ -13,6 +13,9 @@ using System.Collections.Generic;
 using System;
 using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Authorization;
+using CASS___Construction_Assistance.Data;
+using Microsoft.AspNetCore.Identity;
+using CASS___Construction_Assistance.Areas.Identity.Data;
 
 namespace CASS___Construction_Assistance.Controllers
 {
@@ -20,6 +23,9 @@ namespace CASS___Construction_Assistance.Controllers
     public class CustomerController : Controller
     {
         private readonly Data.CassContext _cassContext;
+
+        private readonly UserManager<User> _userManager;
+
         const string bucketName = "construction-assistance";
 
         private List<string> getCredentialInfo()
@@ -37,15 +43,23 @@ namespace CASS___Construction_Assistance.Controllers
             return keyList;
         }
 
-        public CustomerController(Data.CassContext context)
+        public CustomerController(Data.CassContext context, UserManager<User> userManager)
         {
             _cassContext = context;
+            _userManager = userManager;
         }
 
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Index()
         {
-            return View(await _cassContext.Project.ToListAsync());
+
+            var user = await _userManager.GetUserAsync(User);
+
+            var project = from m in _cassContext.Project
+                          where m.Customer_Id.Equals(user.Id)
+                          select m;
+
+            return View(await project.ToListAsync());
 
         }
         public async Task<IActionResult> Create()
@@ -99,9 +113,12 @@ namespace CASS___Construction_Assistance.Controllers
                         return BadRequest("Unable to upload, " + ex.Message);
                     }
                 }
+                var user = await _userManager.GetUserAsync(User);
 
                 project.Status = "Pending";
                 project.ImageUrl = ImageUrl;
+                project.Customer_Id = user.Id;
+                project.Customer_Name = user.Name;
                 _cassContext.Add(project);
                 await _cassContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -119,10 +136,13 @@ namespace CASS___Construction_Assistance.Controllers
             var project = await _cassContext.Project
                 .FirstOrDefaultAsync(m => m.Id == id);
 
+
             if (project == null)
             {
                 return NotFound();
             }
+            return BadRequest(project);
+            Console.WriteLine(project.Name);
 
             return View(project);
         }
