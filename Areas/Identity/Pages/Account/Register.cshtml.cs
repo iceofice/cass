@@ -15,6 +15,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Amazon.SimpleNotificationService;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Amazon.SimpleNotificationService.Model;
 
 namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
 {
@@ -26,6 +30,20 @@ namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private List<string> getCredentialInfo()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+            IConfigurationRoot configure = builder.Build();
+
+            List<string> keyList = new List<string>();
+            keyList.Add(configure["AWSCredential:key1"]);
+            keyList.Add(configure["AWSCredential:key2"]);
+            keyList.Add(configure["AWSCredential:key3"]);
+
+            return keyList;
+        }
 
         public SelectList RoleSelectList = new SelectList(
         new List<SelectListItem>{
@@ -96,6 +114,20 @@ namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true,  Role = Input.UserRole, Name = Input.Name, Phone = Input.Phone};
+                if(user.Role == "Customer")
+                {
+                    List<string> KeyList = getCredentialInfo();
+                    var client = new AmazonSimpleNotificationServiceClient(KeyList[0], KeyList[1], KeyList[2], Amazon.RegionEndpoint.USEast1);
+                    var request = new ListTopicsRequest();
+                    var response = new ListTopicsResponse();
+                    var topics = "arn:aws:sns:us-east-1:668220914140:EmailSubs";
+                    await client.SubscribeAsync(new SubscribeRequest
+                    {
+                        Endpoint = user.Email,
+                        Protocol = "email",
+                        TopicArn = topics
+                    });
+                }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

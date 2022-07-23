@@ -145,8 +145,8 @@ namespace CASS___Construction_Assistance.Controllers
             {
                 return NotFound();
             }
-            return BadRequest(project);
-            Console.WriteLine(project.Name);
+            //return BadRequest(project);
+            //Console.WriteLine(project.Name);
 
             return View(project);
         }
