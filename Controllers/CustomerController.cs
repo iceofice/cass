@@ -136,6 +136,7 @@ namespace CASS___Construction_Assistance.Controllers
             {
                 return NotFound();
             }
+            
 
             var project = await _cassContext.Project
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -154,13 +155,14 @@ namespace CASS___Construction_Assistance.Controllers
         [Authorize(Roles = "Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(String ImageUrl, List<IFormFile> images, int id, [Bind("Id,Status,Constructor_Id,Name,Location,Price,Description")] Project project)
+        public async Task<IActionResult> Update( String ImageUrl, List<IFormFile> images, int id, [Bind("Id,Status,Constructor_Id,Name,Location,Price,Description")] Project project)
         {
+            
             if (id != project.Id)
             {
                 return NotFound();
             }
-
+           
             if (ModelState.IsValid)
             {
                 List<string> KeyList = getCredentialInfo();
@@ -235,8 +237,9 @@ namespace CASS___Construction_Assistance.Controllers
         [Authorize(Roles = "Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateStatus(int id)
+        public async Task<IActionResult> UpdateStatus(int id, String msg)
         {
+            return BadRequest(id + " " + msg);
             var project = await _cassContext.Project.FindAsync(id);
 
             project.Status = "Completed";
