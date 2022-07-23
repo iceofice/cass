@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+
+<div class="col-xl-12">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin /</span> Customer</h4>
+    <div class="nav-align-top mb-4">
+        <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+            <li class="nav-item">
+                <button type="button"
+                        class="nav-link active"
+                        role="tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#navs-pills-justified-home"
+                        aria-controls="navs-pills-justified-home"
+                        aria-selected="true">
+                    <i class="tf-icons bx bx-home"></i> Customer
+
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button"
+                        class="nav-link"
+                        role="tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#navs-pills-justified-profile"
+                        aria-controls="navs-pills-justified-profile"
+                        aria-selected="false">
+                    <i class="tf-icons bx bx-user"></i> Ongoing Order
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button"
+                        class="nav-link"
+                        role="tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#navs-pills-justified-messages"
+                        aria-controls="navs-pills-justified-messages"
+                        aria-selected="false">
+                    <i class="tf-icons bx bx-message-square"></i> Finished Order
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+                <p>
+                    Icing pastry pudding oat cake. Lemon drops cotton candy caramels cake caramels sesame snaps
+                    powder. Bear claw candy topping.
+                </p>
+                <p class="mb-0">
+                    Tootsie roll fruitcake cookie. Dessert topping pie. Jujubes wafer carrot cake jelly. Bonbon
+                    jelly-o jelly-o ice cream jelly beans candy canes cake bonbon. Cookie jelly beans marshmallow
+                    jujubes sweet.
+                </p>
+            </div>
+            <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
+                <p>
+                    Donut dragée jelly pie halvah. Danish gingerbread bonbon cookie wafer candy oat cake ice
+                    cream. Gummies halvah tootsie roll muffin biscuit icing dessert gingerbread. Pastry ice cream
+                    cheesecake fruitcake.
+                </p>
+                <p class="mb-0">
+                    Jelly-o jelly beans icing pastry cake cake lemon drops. Muffin muffin pie tiramisu halvah
+                    cotton candy liquorice caramels.
+                </p>
+            </div>
+            <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
+                <p>
+                    Oat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans macaroon gummies
+                    cupcake gummi bears cake chocolate.
+                </p>
+                <p class="mb-0">
+                    Cake chocolate bar cotton candy apple pie tootsie roll ice cream apple pie brownie cake. Sweet
+                    roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert. Pudding jelly
+                    jelly-o tart brownie jelly.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-lg-5 mb-4 align-self-start">
+    <div class="card h-100">
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <h5 class="card-title m-0 me-2">Feedback</h5>
+            <div class="dropdown">
+                <button class="btn p-0"
+                        type="button"
+                        id="transactionID"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
+                    <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                    <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="p-0 m-0">
+                <li class="d-flex mb-4 pb-1">
+                    <div class="avatar flex-shrink-0 me-3">
+                        <img src="../assets/img/icons/unicons/paypal.png" alt="User" class="rounded" />
+                    </div>
+                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                        <div class="me-2">
+                            <small class="text-muted d-block mb-1">{user}</small>
+                            <h6 class="mb-0">{text}</h6>
+                        </div>
+                        <div class="user-progress d-flex align-items-center gap-1">
+                            <h6 class="mb-0">{date}</h6>
+                            
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
