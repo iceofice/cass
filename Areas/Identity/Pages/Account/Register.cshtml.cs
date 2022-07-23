@@ -62,6 +62,10 @@ namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+            [Required]
+            public string Phone { get; set; }
+            [Required]
+            public string Name { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -91,7 +95,7 @@ namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true,  Role = Input.UserRole};
+                var user = new User { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true,  Role = Input.UserRole, Name = Input.Name, Phone = Input.Phone};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
