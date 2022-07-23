@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,8 @@ namespace CASS___Construction_Assistance.Controllers
     }
     public class AdminController : Controller
     {
-        public async Task<IActionResult> IndexAsync()
+        [Authorize(Roles = "Admin")]
+        public IActionResult IndexAsync()
         {
             List<List<users>> reservationList = new List<List<users>>();
             using (var httpClient = new HttpClient())
@@ -36,10 +38,13 @@ namespace CASS___Construction_Assistance.Controllers
         
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Customer()
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Constructor()
         {
             return View();

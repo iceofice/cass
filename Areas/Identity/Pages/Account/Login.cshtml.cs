@@ -84,7 +84,26 @@ namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    //return LocalRedirect(returnUrl);
+                    var roles = from m in _userManager.Users where m.UserName.Equals(Input.Email) select m.Role;
+
+                    foreach(var role in roles)
+                    {
+                        if (role == "Admin")
+                        {
+                            return Redirect("~/Admin");
+                        }else if(role == "Customer")
+                        {
+                            return Redirect("~/Customer");
+                        }else if (role == "Constructor")
+                        {
+                            return Redirect("~/Constructor");
+                        }
+                        else
+                        {
+                            return Redirect("~/Identity/Account/Login");
+                        }
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {
