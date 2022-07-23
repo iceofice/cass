@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CASS___Construction_Assistance.Migrations
+namespace CASS___Construction_Assistance.Migrations.Cass
 {
-    public partial class createNewProjectTable : Migration
+    public partial class addProjectTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,11 +12,16 @@ namespace CASS___Construction_Assistance.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     Price = table.Column<float>(nullable: false),
-                    Location = table.Column<string>(nullable: true),
-                    Constructor_Id = table.Column<string>(nullable: true)
+                    Location = table.Column<string>(nullable: false),
+                    Status = table.Column<string>(nullable: true),
+                    Constructor_Id = table.Column<string>(nullable: true),
+                    Constructor_Name = table.Column<string>(nullable: true),
+                    Customer_Id = table.Column<string>(nullable: true),
+                    Customer_Name = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

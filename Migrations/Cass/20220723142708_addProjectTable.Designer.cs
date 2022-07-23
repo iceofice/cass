@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CASS___Construction_Assistance.Migrations
+namespace CASS___Construction_Assistance.Migrations.Cass
 {
     [DbContext(typeof(CassContext))]
-    [Migration("20220722094518_updateProjectTable")]
-    partial class updateProjectTable
+    [Migration("20220723142708_addProjectTable")]
+    partial class addProjectTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,13 +30,28 @@ namespace CASS___Construction_Assistance.Migrations
                     b.Property<string>("Constructor_Id")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Constructor_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Customer_Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Customer_Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Price")

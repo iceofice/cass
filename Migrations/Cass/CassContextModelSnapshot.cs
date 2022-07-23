@@ -3,16 +3,14 @@ using CASS___Construction_Assistance.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CASS___Construction_Assistance.Migrations
+namespace CASS___Construction_Assistance.Migrations.Cass
 {
     [DbContext(typeof(CassContext))]
-    [Migration("20220722142910_updateProjectTable2")]
-    partial class updateProjectTable2
+    partial class CassContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,6 +26,15 @@ namespace CASS___Construction_Assistance.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Constructor_Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Constructor_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Customer_Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Customer_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
