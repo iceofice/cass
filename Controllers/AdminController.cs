@@ -15,10 +15,13 @@ namespace CASS___Construction_Assistance.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Customer()
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Constructor()
         {
             return View();
