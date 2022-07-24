@@ -158,20 +158,23 @@ namespace cass.Controllers
                     //convert document type record become to the string, string type - for frontend display usage
                     foreach (var attributeKey in singledocumentrecord.GetAttributeNames())
                     {
+                        if (attributeKey != "Constructor_Id")
+                        {
+                            string attributeValue = "";
+                            var value = singledocumentrecord[attributeKey];
 
-                        string attributeValue = "";
-                        var value = singledocumentrecord[attributeKey];
+                            if (value is DynamoDBBool) //change the type from document type to real string type
+                                attributeValue = value.AsBoolean().ToString();
+                            else if (value is Primitive)
+                                attributeValue = value.AsPrimitive().Value.ToString();
+                            else if (value is PrimitiveList)
+                                attributeValue = string.Join(",", (from primitive
+                                                in value.AsPrimitiveList().Entries
+                                                                   select primitive.Value).ToArray());
 
-                        if (value is DynamoDBBool) //change the type from document type to real string type
-                            attributeValue = value.AsBoolean().ToString();
-                        else if (value is Primitive)
-                            attributeValue = value.AsPrimitive().Value.ToString();
-                        else if (value is PrimitiveList)
-                            attributeValue = string.Join(",", (from primitive
-                                            in value.AsPrimitiveList().Entries
-                                                               select primitive.Value).ToArray());
-
-                        singleConvertedRecord.Add(new KeyValuePair<string, string>(attributeKey, attributeValue));
+                            singleConvertedRecord.Add(new KeyValuePair<string, string>(attributeKey, attributeValue));
+                        }
+                        
                     }
                     fullListConvertedRecord.Add(singleConvertedRecord);
                     singleConvertedRecord = new List<KeyValuePair<string, string>>();
