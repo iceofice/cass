@@ -11,6 +11,8 @@ using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Microsoft.AspNetCore.Identity;
+using CASS___Construction_Assistance.Areas.Identity.Data;
 
 namespace CASS___Construction_Assistance.Controllers
 {
@@ -30,6 +32,14 @@ namespace CASS___Construction_Assistance.Controllers
             keyList.Add(configure["AWSCredential:key3"]);
 
             return keyList;
+        }
+        private readonly Data.CassContext _cassContext;
+
+        private readonly UserManager<User> _userManager;
+        public AdminController(Data.CassContext context, UserManager<User> userManager)
+        {
+            _cassContext = context;
+            _userManager = userManager;
         }
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexAsync()
@@ -145,7 +155,10 @@ namespace CASS___Construction_Assistance.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> UpdateConstructorStatus(String id)
         {
-            return BadRequest(id);
+            var user = await _userManager.FindByIdAsync(id);
+            user.EmailConfirmed = true;
+            var result = await _userManager.UpdateAsync(user);
+            return RedirectToAction(nameof(Constructor));
         }
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SendPromo(string promoMessage)
@@ -166,8 +179,23 @@ namespace CASS___Construction_Assistance.Controllers
             });
 
             return RedirectToAction(nameof(Customer));
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> DeleteCustomer(String id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
 
+            var result = await _userManager.DeleteAsync(user);
+            return RedirectToAction(nameof(Customer));
+        }
+        public async Task<IActionResult> DeleteConstructor(String id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
 
+            var result = await _userManager.DeleteAsync(user);
+            return RedirectToAction(nameof(Constructor));
         }
     }
 }

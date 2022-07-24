@@ -113,15 +113,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var APIusers in Model.users)
+                            @foreach (var APIusers in Model.unregisteredUser)
                             {
                                 count = count + 1;
                                 <tr>
-                                    <th scope="row">@count</th>
-                                    <td>@APIusers.Name</td>
-                                    <td>@APIusers.Email</td>
-                                    <td>@APIusers.Phone</td>
-                                    <td style="text-align: center"><button id="edit-@APIusers.Id" class="btn btn-outline-danger py-2 px-4">Delete Account</button></td>
+                                    <form asp-controller="Admin" asp-action="UpdateConstructorStatus">
+                                        <th scope="row">@count</th>
+                                        <td>@APIusers.Name</td>
+                                        <td>@APIusers.Email</td>
+                                        <td>@APIusers.Phone</td>
+
+                                        <td style="text-align: center">
+                                            <button id="edit-@APIusers.Id" class="btn btn-outline-success py-2 px-4" type="submit">
+                                                Accept
+                                            </button>
+                                        </td>
+                                        <input type="hidden" name="id" value="@APIusers.Id" />
+                                    </form>
                                 </tr>
                             }
                         </tbody>
@@ -148,22 +156,20 @@
                             @{
                                 count = 0;
                             }
-                            @foreach (var Project in Model.filteredProjects1)
+                            @foreach (var APIusers in Model.users)
                             {
                                 count = count + 1;
-                                <tr>
-                                    <th scope="row">@count</th>
-                                    <td>@Project.Constructor_Name</td>
-                                    <td>@Project.Name</td>
-                                    <td>@Project.Price</td>
-                                    <td>@Project.Location</td>
-                                    <td>@Project.Customer_Name</td>
-                                    <td style="text-align: center">
-                                        <button data-bs-toggle="modal" data-bs-target="#detailsModal-@Project.Id" class="btn btn-outline-primary py-2 px-4">
-                                            View Details
-                                        </button>
-                                    </td>
-                                </tr>
+                                <form asp-action="DeleteConstructor" asp-controller="Admin">
+                                    <tr>
+                                        <th scope="row">@count</th>
+                                        <td>@APIusers.Name</td>
+                                        <td>@APIusers.Email</td>
+                                        <td>@APIusers.Phone</td>
+                                        <td style="text-align: center"><button type="submit" id="edit-@APIusers.Id" class="btn btn-outline-danger py-2 px-4">Delete Account</button></td>
+                                        <input type="hidden" name="id" value="@APIusers.Id" />
+                                    </tr>
+                                </form>
+
                             }
                         </tbody>
                     </table>

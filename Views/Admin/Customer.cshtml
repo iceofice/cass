@@ -60,18 +60,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @{
+                            @{ 
                                 var count = 0;
                             }
                             @foreach (var APIusers in Model.users)
                             {
                                 count = count + 1;
                                 <tr>
-                                    <th scope="row">@count</th>
-                                    <td>@APIusers.Name</td>
-                                    <td>@APIusers.Email</td>
-                                    <td>@APIusers.Phone</td>
-                                    <td style="text-align: center"><button id="edit-@APIusers.Id" class="btn btn-outline-danger py-2 px-4">Delete Account</button></td>
+                                    <form asp-action="DeleteCustomer" asp-controller="Admin">
+
+                                        <th scope="row">@count</th>
+                                        <td>@APIusers.Name</td>
+                                        <td>@APIusers.Email</td>
+                                        <td>@APIusers.Phone</td>
+                                        <td style="text-align: center"><button type="submit" id="edit-@APIusers.Id" class="btn btn-outline-danger py-2 px-4">Delete Account</button></td>
+                                        <input type="hidden" name="id" value="@APIusers.Id" />
+                                    </form>
                                 </tr>
                             }
                         </tbody>
