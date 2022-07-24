@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Authorization;
 using CASS___Construction_Assistance.Data;
 using Microsoft.AspNetCore.Identity;
 using CASS___Construction_Assistance.Areas.Identity.Data;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.Model;
 
 namespace CASS___Construction_Assistance.Controllers
 {
@@ -137,6 +139,7 @@ namespace CASS___Construction_Assistance.Controllers
                 return NotFound();
             }
 
+
             var project = await _cassContext.Project
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -145,8 +148,8 @@ namespace CASS___Construction_Assistance.Controllers
             {
                 return NotFound();
             }
-            return BadRequest(project);
-            Console.WriteLine(project.Name);
+            //return BadRequest(project);
+            //Console.WriteLine(project.Name);
 
             return View(project);
         }
@@ -154,8 +157,9 @@ namespace CASS___Construction_Assistance.Controllers
         [Authorize(Roles = "Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(String ImageUrl, List<IFormFile> images, int id, [Bind("Id,Status,Constructor_Id,Name,Location,Price,Description")] Project project)
+        public async Task<IActionResult> Update(String ImageUrl, List<IFormFile> images, int id, [Bind("Id,Status,Constructor_Id,Name,Location,Price,Description,Customer_Name,Customer_Id,Constructor_Name")] Project project)
         {
+
             if (id != project.Id)
             {
                 return NotFound();
@@ -235,8 +239,44 @@ namespace CASS___Construction_Assistance.Controllers
         [Authorize(Roles = "Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateStatus(int id)
+        public async Task<IActionResult> UpdateStatus(int id, String msg, String Constructor_Id, String Name)
         {
+            List<string> keyList = getCredentialInfo();
+            var dynamoDBclient = new AmazonDynamoDBClient(keyList[0], keyList[1], keyList[2], Amazon.RegionEndpoint.USEast1);
+
+            Dictionary<string, AttributeValue> attributes = new Dictionary<string, AttributeValue>();
+
+            //4. starting to add the data to DynamoDB
+            try
+            {
+                attributes["Constructor_Id"] = new AttributeValue { S = Constructor_Id }; //partition key
+                attributes["Project_Id"] = new AttributeValue { N = id.ToString() }; //partition key
+                attributes["Project_Name"] = new AttributeValue { S = Name }; //partition key
+                attributes["Feedback"] = new AttributeValue { S = msg };
+                attributes["Created_At"] = new AttributeValue
+                {
+                    S = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                };
+
+
+                PutItemRequest orderRequest = new PutItemRequest
+                {
+                    TableName = "Feedback",
+                    Item = attributes
+                };
+
+                await dynamoDBclient.PutItemAsync(orderRequest);
+            }
+
+            catch (AmazonDynamoDBException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             var project = await _cassContext.Project.FindAsync(id);
 
             project.Status = "Completed";
@@ -244,6 +284,7 @@ namespace CASS___Construction_Assistance.Controllers
             await _cassContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+
         }
 
         [Authorize(Roles = "Customer")]

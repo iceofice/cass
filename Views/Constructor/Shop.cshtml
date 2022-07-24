@@ -22,6 +22,7 @@
 			<div class="col-lg-7 pb-5">
 				<h3 class="font-weight-semi-bold">@Model.Name</h3>
 				<h3 class="font-weight-semi-bold mb-4">RM @Model.Price</h3>
+				<p class="mb-4">By: @Model.Customer_Name</p>
 				<p class="mb-4">@Model.Description</p>
 				<div class="d-flex align-items-center mb-4 pt-2">
 					@if (@Model.Status.Equals("Pending"))
