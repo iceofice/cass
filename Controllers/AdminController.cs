@@ -7,12 +7,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace CASS___Construction_Assistance.Controllers
 {
    
     public class AdminController : Controller
     {
+        private List<string> getCredentialInfo()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+            IConfigurationRoot configure = builder.Build();
+
+            List<string> keyList = new List<string>();
+            keyList.Add(configure["AWSCredential:key1"]);
+            keyList.Add(configure["AWSCredential:key2"]);
+            keyList.Add(configure["AWSCredential:key3"]);
+
+            return keyList;
+        }
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexAsync()
         {
@@ -128,6 +146,29 @@ namespace CASS___Construction_Assistance.Controllers
         public async Task<IActionResult> UpdateConstructorStatus(String id)
         {
             return BadRequest(id);
+        }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SendPromo(string promoMessage)
+        {
+
+            
+            List<string> KeyList = getCredentialInfo();
+            var client = new AmazonSimpleNotificationServiceClient(KeyList[0], KeyList[1], KeyList[2], Amazon.RegionEndpoint.USEast1);
+            var request = new ListTopicsRequest();
+            var response = new ListTopicsResponse();
+            var topics = "arn:aws:sns:us-east-1:668220914140:EmailSubs";
+            
+
+            await client.PublishAsync(new PublishRequest
+            {
+                Subject = "CASS --- PROMO",
+                Message = promoMessage, 
+                TopicArn = topics
+            });
+
+            return RedirectToAction(nameof(Customer));
+
+
         }
     }
 }
