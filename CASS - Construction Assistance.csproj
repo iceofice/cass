@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="temp\**" />
+    <Content Remove="temp\**" />
+    <EmbeddedResource Remove="temp\**" />
+    <None Remove="temp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\assets\css\demo.css" />
     <None Include="wwwroot\assets\img\avatars\1.png" />
     <None Include="wwwroot\assets\img\avatars\5.png" />
@@ -109,10 +116,6 @@
     </PackageReference>
 
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="temp\" />
   </ItemGroup>
 
 

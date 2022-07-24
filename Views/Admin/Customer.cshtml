@@ -174,7 +174,7 @@
 <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form asp-controller="Admin" asp-action="SendPromo">
+            <form asp-action="SendPromo" asp-controller="Admin">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel3">Send Promo</h5>
                     <button type="button"
@@ -186,7 +186,7 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameLarge" class="form-label">Message</label>
-                            <textarea type="text" id="nameLarge" class="form-control" placeholder="Enter Promo Message" rows="4"> </textarea>
+                        <textarea type="text" id="nameLarge" class="form-control" placeholder="Enter Promo Message" rows="4" name="promoMessage"> </textarea>
                         </div>
                     </div>
 
