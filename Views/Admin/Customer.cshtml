@@ -56,7 +56,6 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,7 +70,6 @@
                                     <td>@APIusers.Name</td>
                                     <td>@APIusers.Email</td>
                                     <td>@APIusers.Phone</td>
-                                    <td style="text-align: center"><button id="edit-@APIusers.Id" class="btn btn-outline-danger py-2 px-4">Delete Account</button></td>
                                 </tr>
                             }
                         </tbody>
@@ -176,6 +174,7 @@
 <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+            <form asp-controller="Admin" asp-action="SendPromo">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel3">Send Promo</h5>
                     <button type="button"
@@ -187,7 +186,7 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameLarge" class="form-label">Message</label>
-                        <textarea type="text" id="nameLarge" class="form-control" placeholder="Enter Promo Message" rows="4"> </textarea>
+                            <textarea type="text" id="nameLarge" class="form-control" placeholder="Enter Promo Message" rows="4"> </textarea>
                         </div>
                     </div>
 
@@ -197,7 +196,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="submit"class="btn btn-primary" >Send Promo!</button>
+                    <button type="submit" class="btn btn-primary">Send Promo!</button>
                 </div>
             </form>
         </div>
