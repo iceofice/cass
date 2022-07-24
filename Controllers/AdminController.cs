@@ -14,6 +14,7 @@ using System.IO;
 
 namespace CASS___Construction_Assistance.Controllers
 {
+   
     public class AdminController : Controller
     {
         private List<string> getCredentialInfo()
@@ -33,7 +34,6 @@ namespace CASS___Construction_Assistance.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexAsync()
         {
-
             List<int> resultList;
             List<List<Project>> rawProject = new List<List<Project>>();
             List<List<APIusers>> rawUsers = new List<List<APIusers>>();
@@ -49,10 +49,10 @@ namespace CASS___Construction_Assistance.Controllers
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     rawUsers = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
+
                     userList = rawUsers.First();
                     customerList = userList.FindAll(x => x.Role == "Customer");
                     constructorList = userList.FindAll(x => x.Role == "Constructor");
-
                 }
                 using (var response = await httpClient.GetAsync("https://4f4j3o96c4.execute-api.us-east-1.amazonaws.com/projectList"))
                 {
@@ -64,7 +64,7 @@ namespace CASS___Construction_Assistance.Controllers
                 resultList = new List<int>(){ customerList.Count, constructorList.Count, projectList.Count };
                 return View(resultList);
             }
-
+            
         }
 
         [Authorize(Roles = "Admin")]
