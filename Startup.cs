@@ -5,10 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Amazon.XRay.Recorder.Handlers.AwsSdk; 
+using Amazon.XRay.Recorder.Core; 
+using Amazon.DynamoDBv2;
 
 namespace CASS___Construction_Assistance
 {
@@ -17,6 +16,10 @@ namespace CASS___Construction_Assistance
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            AWSXRayRecorder.InitializeInstance(configuration: Configuration);
+            AWSSDKHandler.RegisterXRayForAllServices();
+            AWSSDKHandler.RegisterXRay<IAmazonDynamoDB>();
         }
 
         public IConfiguration Configuration { get; }
@@ -43,6 +46,7 @@ namespace CASS___Construction_Assistance
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseXRay("Cass-application");
             app.UseStaticFiles();
 
             app.UseRouting();
