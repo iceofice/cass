@@ -80,7 +80,7 @@ namespace CASS___Construction_Assistance.Controllers
                     registeredProject = projectList.FindAll(x => x.Status != "Completed");
                     finishedProject = projectList.FindAll(x => x.Status == "Completed");
                 }
-                resultList = new APIresult { users = customerList, filteredProjects1 = registeredProject, filteredProjects2 = finishedProject };
+                resultList = new APIresult { users = customerList, filteredProjects1 = registeredProject, filteredProjects2 = finishedProject , unregisteredUser = null};
                 return View(resultList);
             }
         }
@@ -92,7 +92,8 @@ namespace CASS___Construction_Assistance.Controllers
             List<List<Project>> rawProject = new List<List<Project>>();
             List<List<APIusers>> rawUsers = new List<List<APIusers>>();
             List<APIusers> userList = new List<APIusers>();
-            List<APIusers> constructorList = new List<APIusers>();
+            List<APIusers> constructorRList = new List<APIusers>();
+            List<APIusers> constructorUnList = new List<APIusers>();
             List<Project> projectList = new List<Project>();
             List<Project> finishedProject = new List<Project>();
             List<Project> registeredProject = new List<Project>();
@@ -105,7 +106,8 @@ namespace CASS___Construction_Assistance.Controllers
                     rawUsers = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
 
                     userList = rawUsers.First();
-                    constructorList = userList.FindAll(x => x.Role == "Constructor");
+                    constructorRList = userList.FindAll(x => x.Role == "Constructor" && x.EmailConfirmed == true);
+                    constructorUnList = userList.FindAll(x => x.Role == "Constructor" && x.EmailConfirmed == false);
                 }
                 using (var response = await httpClient.GetAsync("https://4f4j3o96c4.execute-api.us-east-1.amazonaws.com/projectList"))
                 {
@@ -116,9 +118,16 @@ namespace CASS___Construction_Assistance.Controllers
                     registeredProject = projectList.FindAll(x => x.Status == "Taken");
                     finishedProject = projectList.FindAll(x => x.Status == "Completed");
                 }
-                resultList = new APIresult { users = constructorList, filteredProjects1 = registeredProject, filteredProjects2 = finishedProject };
+                resultList = new APIresult { users = constructorRList, filteredProjects1 = registeredProject, filteredProjects2 = finishedProject , unregisteredUser = constructorUnList};
                 return View(resultList);
             }
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> UpdateConstructorStatus(String id)
+        {
+            return BadRequest(id);
         }
     }
 }

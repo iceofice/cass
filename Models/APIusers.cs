@@ -13,6 +13,7 @@ namespace CASS___Construction_Assistance.Models
         public string Phone { get; set; }
         public string ImageUrl { get; set; }
         public string Role { get; set; }
+        public bool EmailConfirmed { get; set; }
     }
 }
 
