@@ -1,0 +1,64 @@
+﻿@{
+	ViewData["Title"] = "Myproject";
+}
+
+@{
+	Layout = "_ConstructorLayout";
+}
+
+<div class="container-fluid bg-secondary mb-5">
+	<div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+		<h1 class="font-weight-semi-bold text-uppercase mb-3">My Feedback</h1>
+	</div>
+</div>
+<div class="container-fluid pt-5">
+	<div class="row px-xl-5">
+		<div class="col-lg-4 mb-5">
+			<form asp-action="Feedback">
+				<div class="control-group">
+					<input name="projectName" class="form-control" placeholder="Project Name" />
+					<p class="help-block text-danger"></p>
+				</div>
+				<div>
+					<button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
+						Search
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- Cart Start -->
+	<div class="container-fluid pt-5">
+		<div class="row px-xl-5">
+			<div class="col-lg-12 table-responsive mb-5">
+				<table class="table table-bordered text-center mb-0">
+					<thead class="bg-secondary text-dark">
+						<tr>
+							<th>Date</th>
+							<th>Project ID</th>
+							<th>Feedback</th>
+							<th>Constructor ID</th>
+							<th>Project Name</th>
+						</tr>
+					</thead>
+					<tbody class="align-middle">
+						@if (Model != null)
+						{
+							@foreach (var item in Model)
+							{
+								<tr>
+									@foreach (var keyvalue in item)
+									{
+										<td class="align-middle">@keyvalue.Value</td>
+
+									}
+								</tr>
+							}
+						}
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+	<!-- Cart End -->

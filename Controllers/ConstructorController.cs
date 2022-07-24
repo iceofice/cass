@@ -15,6 +15,8 @@ using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using CASS___Construction_Assistance.Areas.Identity.Data;
+using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.DynamoDBv2;
 
 namespace CASS___Construction_Assistance.Controllers
 {
@@ -117,6 +119,67 @@ namespace CASS___Construction_Assistance.Controllers
             await _CassContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Myproject));
+        }
+
+        public IActionResult Feedback()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Feedback(String projectName)
+        {
+            List<string> keyList = getCredentialInfo();
+            var dynamoDBclient = new AmazonDynamoDBClient(keyList[0], keyList[1], keyList[2], Amazon.RegionEndpoint.USEast1);
+
+            List<Document> returnRecords = new List<Document>(); //for return records in documentmodel type
+            List<KeyValuePair<string, string>> singleConvertedRecord = new List<KeyValuePair<string, string>>(); // single converted result
+            List<List<KeyValuePair<string, string>>> fullListConvertedRecord = new List<List<KeyValuePair<string, string>>>(); // full list result
+            var user = await _userManager.GetUserAsync(User);
+
+            //3. start collecting all the records
+            //ScanFilter scanName = new ScanFilter();
+            QueryFilter scanName = new QueryFilter("Constructor_Id", QueryOperator.Equal, user.Id);
+
+            scanName.AddCondition("Project_Name", ScanOperator.Contains, projectName); //Convert.ToDouble(Price);
+
+            Table FeedbackTable = Table.LoadTable(dynamoDBclient, "Feedback");
+            Search search = FeedbackTable.Query(scanName);
+
+            //step 3: return list from dynamodb, must use the loop to extract record by record 1 by 1
+            do
+            {
+                returnRecords = await search.GetNextSetAsync(); //read content from the search result
+
+                //if found stg
+                foreach (var singledocumentrecord in returnRecords)
+                {
+                    //convert document type record become to the string, string type - for frontend display usage
+                    foreach (var attributeKey in singledocumentrecord.GetAttributeNames())
+                    {
+
+                        string attributeValue = "";
+                        var value = singledocumentrecord[attributeKey];
+
+                        if (value is DynamoDBBool) //change the type from document type to real string type
+                            attributeValue = value.AsBoolean().ToString();
+                        else if (value is Primitive)
+                            attributeValue = value.AsPrimitive().Value.ToString();
+                        else if (value is PrimitiveList)
+                            attributeValue = string.Join(",", (from primitive
+                                            in value.AsPrimitiveList().Entries
+                                                               select primitive.Value).ToArray());
+
+                        singleConvertedRecord.Add(new KeyValuePair<string, string>(attributeKey, attributeValue));
+                    }
+                    fullListConvertedRecord.Add(singleConvertedRecord);
+                    singleConvertedRecord = new List<KeyValuePair<string, string>>();
+                }
+            }
+            while (!search.IsDone);
+            return View(fullListConvertedRecord);
+
         }
     }
 }
