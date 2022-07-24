@@ -1,4 +1,4 @@
-﻿using CASS___Construction_Assistance.Models;
+﻿using cass.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -13,13 +13,13 @@ using System.Collections.Generic;
 using System;
 using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Authorization;
-using CASS___Construction_Assistance.Data;
+using cass.Data;
 using Microsoft.AspNetCore.Identity;
-using CASS___Construction_Assistance.Areas.Identity.Data;
+using cass.Areas.Identity.Data;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 
-namespace CASS___Construction_Assistance.Controllers
+namespace cass.Controllers
 {
 
     public class CustomerController : Controller
@@ -28,7 +28,7 @@ namespace CASS___Construction_Assistance.Controllers
 
         private readonly UserManager<User> _userManager;
 
-        const string bucketName = "construction-assistance";
+        const string bucketName = "construction-assistances";
 
         private List<string> getCredentialInfo()
         {

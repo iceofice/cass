@@ -1,4 +1,4 @@
-using CASS___Construction_Assistance.Data;
+using cass.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,10 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Amazon.XRay.Recorder.Handlers.AwsSdk; 
-using Amazon.XRay.Recorder.Core; 
+using Amazon.XRay.Recorder.Core;
+
 using Amazon.DynamoDBv2;
 
-namespace CASS___Construction_Assistance
+namespace cass
 {
     public class Startup
     {
@@ -46,7 +47,7 @@ namespace CASS___Construction_Assistance
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseXRay("Cass-application");
+            app.UseXRay("Cass_Application");
             app.UseStaticFiles();
 
             app.UseRouting();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CASS___Construction_Assistance.Migrations.Cass
+namespace cass.Migrations.Cass
 {
     public partial class addProjectTable : Migration
     {

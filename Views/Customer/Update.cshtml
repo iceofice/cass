@@ -1,4 +1,4 @@
-﻿@model CASS___Construction_Assistance.Models.Project
+﻿@model cass.Models.Project
 
 @{
     ViewData["Title"] = "Update";
@@ -25,7 +25,7 @@
         <div class="col-lg-8 mb-5">
             <div class="contact-form">
                 <div id="success"></div>
-                @*@if (Model.Status.Equals("Taken"))*@
+                @if (Model.Status.Equals("Taken"))
                 {
 
                     <div>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace CASS___Construction_Assistance.Data
+namespace cass.Data
 {
     public class CassContext : DbContext
     {

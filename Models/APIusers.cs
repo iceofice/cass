@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CASS___Construction_Assistance.Models
+namespace cass.Models
 {
     public class APIusers
     {

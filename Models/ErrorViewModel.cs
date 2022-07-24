@@ -1,6 +1,6 @@
 using System;
 
-namespace CASS___Construction_Assistance.Models
+namespace cass.Models
 {
     public class ErrorViewModel
     {

@@ -1,4 +1,4 @@
-﻿using CASS___Construction_Assistance.Data;
+﻿using cass.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -14,16 +14,16 @@ using System;
 using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using CASS___Construction_Assistance.Areas.Identity.Data;
+using cass.Areas.Identity.Data;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2;
 
-namespace CASS___Construction_Assistance.Controllers
+namespace cass.Controllers
 {
     public class ConstructorController : Controller
     {
         //declare constant to refer to the bucketname in S3
-        const string bucketname = "construction-assistance";
+        const string bucketname = "construction-assistances";
 
         private readonly UserManager<User> _userManager;
 

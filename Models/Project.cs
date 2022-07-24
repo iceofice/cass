@@ -1,7 +1,7 @@
-using CASS___Construction_Assistance.Areas.Identity.Data;
+using cass.Areas.Identity.Data;
 using System.ComponentModel.DataAnnotations;
 
-namespace CASS___Construction_Assistance.Models
+namespace cass.Models
 {
     public class Project
     {

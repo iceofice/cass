@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CASS___Construction_Assistance.Migrations
+namespace cass.Migrations
 {
     public partial class addUserTable : Migration
     {

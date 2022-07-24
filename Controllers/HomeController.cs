@@ -1,5 +1,5 @@
-﻿using CASS___Construction_Assistance.Areas.Identity.Data;
-using CASS___Construction_Assistance.Models;
+﻿using cass.Areas.Identity.Data;
+using cass.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CASS___Construction_Assistance.Controllers
+namespace cass.Controllers
 {
     public class HomeController : Controller
     {

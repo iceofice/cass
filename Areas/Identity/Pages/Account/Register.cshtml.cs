@@ -7,7 +7,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using CASS___Construction_Assistance.Areas.Identity.Data;
+using cass.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using Amazon.SimpleNotificationService.Model;
 
-namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
+namespace cass.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -121,7 +121,7 @@ namespace CASS___Construction_Assistance.Areas.Identity.Pages.Account
                     var client = new AmazonSimpleNotificationServiceClient(KeyList[0], KeyList[1], KeyList[2], Amazon.RegionEndpoint.USEast1);
                     var request = new ListTopicsRequest();
                     var response = new ListTopicsResponse();
-                    var topics = "arn:aws:sns:us-east-1:668220914140:EmailSubs";
+                    var topics = "arn:aws:sns:us-east-1:390461256434:EmailSubs";
                     await client.SubscribeAsync(new SubscribeRequest
                     {
                         Endpoint = user.Email,

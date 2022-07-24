@@ -1,4 +1,4 @@
-using CASS___Construction_Assistance.Models;
+using cass.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,9 +12,9 @@ using Amazon.SimpleNotificationService.Model;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
-using CASS___Construction_Assistance.Areas.Identity.Data;
+using cass.Areas.Identity.Data;
 
-namespace CASS___Construction_Assistance.Controllers
+namespace cass.Controllers
 {
    
     public class AdminController : Controller
@@ -168,7 +168,7 @@ namespace CASS___Construction_Assistance.Controllers
             var client = new AmazonSimpleNotificationServiceClient(KeyList[0], KeyList[1], KeyList[2], Amazon.RegionEndpoint.USEast1);
             var request = new ListTopicsRequest();
             var response = new ListTopicsResponse();
-            var topics = "arn:aws:sns:us-east-1:668220914140:EmailSubs";
+            var topics = "arn:aws:sns:us-east-1:390461256434:EmailSubs";
             
 
             await client.PublishAsync(new PublishRequest

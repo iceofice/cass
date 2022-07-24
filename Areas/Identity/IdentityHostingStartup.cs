@@ -1,6 +1,6 @@
 ﻿using System;
-using CASS___Construction_Assistance.Areas.Identity.Data;
-using CASS___Construction_Assistance.Data;
+using cass.Areas.Identity.Data;
+using cass.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(CASS___Construction_Assistance.Areas.Identity.IdentityHostingStartup))]
-namespace CASS___Construction_Assistance.Areas.Identity
+[assembly: HostingStartup(typeof(cass.Areas.Identity.IdentityHostingStartup))]
+namespace cass.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {
