@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using CASS___Construction_Assistance.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
 
 
 <html lang="en"
@@ -49,38 +56,40 @@
 
 <body>
     <!-- Layout wrapper -->
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="font-size: 18px">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index">
-                    <img src="../assets/vendor/logo.png"
-                         alt="user-avatar"
-                         class="d-block rounded"
-                         height="80"
-                         width="80"
-                         id="logo" />
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Customer">Customer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Constructor">Constructor</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="layout-demo-info">
-                    <a class="btn btn-primary nav-item nav-link" asp-area="" asp-controller="" asp-action="">Logout</a>
-                </div>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="font-size: 16px">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index">
+                <img src="../assets/vendor/logo.png"
+                     alt="user-avatar"
+                     class="d-block rounded"
+                     height="80"
+                     width="80"
+                     id="logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Customer">Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Constructor">Constructor</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+            <div class="layout-demo-info">
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" type="submit" class="btn btn-primary py-2 px-4">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
     <div class="layout-wrapper layout-content-navbar layout-without-menu">
         <div class="layout-container">
             <!-- Layout container -->

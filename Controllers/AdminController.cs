@@ -1,3 +1,4 @@
+using CASS___Construction_Assistance.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,16 +14,6 @@ using System.IO;
 
 namespace CASS___Construction_Assistance.Controllers
 {
-    public class users
-    {
-        public string Id { get; set; }
-        public string Email { get; set; }
-        public string Name { get; set; }
-        public string Phone { get; set; }
-        public string ImageUrl { get; set; }
-        public string Role { get; set; }
-    }
-
     public class AdminController : Controller
     {
         private List<string> getCredentialInfo()
@@ -41,43 +32,120 @@ namespace CASS___Construction_Assistance.Controllers
         }
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> IndexAsync()
-
         {
-            List<List<users>> reservationList = new List<List<users>>();
-            List<users> userList = new List<users>();
-            List<users> CustomerList = new List<users>();
-            List<users> ConstructorList = new List<users>();
-            List<users> AdminList = new List<users>();
+
+            List<int> resultList;
+            List<List<Project>> rawProject = new List<List<Project>>();
+            List<List<APIusers>> rawUsers = new List<List<APIusers>>();
+            List<APIusers> userList = new List<APIusers>();
+            List<APIusers> customerList = new List<APIusers>();
+            List<APIusers> constructorList = new List<APIusers>();
+            List<Project> projectList = new List<Project>();
+            List<Project> finishedProject = new List<Project>();
+
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://0sarh7yv36.execute-api.us-east-1.amazonaws.com/prod"))
+                using (var response = await httpClient.GetAsync("https://px39op01o5.execute-api.us-east-1.amazonaws.com/userList"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    reservationList = JsonConvert.DeserializeObject<List<List<users>>>(apiResponse);
+                    rawUsers = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
+                    userList = rawUsers.First();
+                    customerList = userList.FindAll(x => x.Role == "Customer");
+                    constructorList = userList.FindAll(x => x.Role == "Constructor");
 
-                    userList = reservationList.First();
-                    CustomerList = userList.FindAll(x => x.Role == "Customer");
-                    ConstructorList = userList.FindAll(x => x.Role == "Constructor");
-                    AdminList = userList.FindAll(x => x.Role == "Admin");
-
-                    // return BadRequest(AdminList);
                 }
+                using (var response = await httpClient.GetAsync("https://4f4j3o96c4.execute-api.us-east-1.amazonaws.com/projectList"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    rawProject = JsonConvert.DeserializeObject<List<List<Project>>>(apiResponse);
+
+                    projectList = rawProject.First().FindAll(x => x.Status != "Completed");
+                }
+                resultList = new List<int>(){ customerList.Count, constructorList.Count, projectList.Count };
+                return View(resultList);
             }
 
-            return View();
-
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult Customer()
+        public async Task<IActionResult> Customer()
         {
-            return View();
+            APIresult resultList;
+            List<List<Project>> rawProject = new List<List<Project>>();
+            List<List<APIusers>> rawUsers = new List<List<APIusers>>();
+            List<APIusers> userList = new List<APIusers>();
+            List<APIusers> customerList = new List<APIusers>();
+            List<Project> projectList = new List<Project>();
+            List<Project> finishedProject = new List<Project>();
+            List<Project> registeredProject = new List<Project>();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://px39op01o5.execute-api.us-east-1.amazonaws.com/userList"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    rawUsers = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
+
+                    userList = rawUsers.First();
+                    customerList = userList.FindAll(x => x.Role == "Customer");
+                }
+                using (var response = await httpClient.GetAsync("https://4f4j3o96c4.execute-api.us-east-1.amazonaws.com/projectList"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    rawProject = JsonConvert.DeserializeObject<List<List<Project>>>(apiResponse);
+
+                    projectList = rawProject.First();
+                    registeredProject = projectList.FindAll(x => x.Status != "Completed");
+                    finishedProject = projectList.FindAll(x => x.Status == "Completed");
+                }
+                resultList = new APIresult { users = customerList, filteredProjects1 = registeredProject, filteredProjects2 = finishedProject , unregisteredUser = null};
+                return View(resultList);
+            }
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult Constructor()
+        public async Task<IActionResult> Constructor()
         {
-            return View();
+            APIresult resultList;
+            List<List<Project>> rawProject = new List<List<Project>>();
+            List<List<APIusers>> rawUsers = new List<List<APIusers>>();
+            List<APIusers> userList = new List<APIusers>();
+            List<APIusers> constructorRList = new List<APIusers>();
+            List<APIusers> constructorUnList = new List<APIusers>();
+            List<Project> projectList = new List<Project>();
+            List<Project> finishedProject = new List<Project>();
+            List<Project> registeredProject = new List<Project>();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://px39op01o5.execute-api.us-east-1.amazonaws.com/userList"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    rawUsers = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
+
+                    userList = rawUsers.First();
+                    constructorRList = userList.FindAll(x => x.Role == "Constructor" && x.EmailConfirmed == true);
+                    constructorUnList = userList.FindAll(x => x.Role == "Constructor" && x.EmailConfirmed == false);
+                }
+                using (var response = await httpClient.GetAsync("https://4f4j3o96c4.execute-api.us-east-1.amazonaws.com/projectList"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    rawProject = JsonConvert.DeserializeObject<List<List<Project>>>(apiResponse);
+
+                    projectList = rawProject.First();
+                    registeredProject = projectList.FindAll(x => x.Status == "Taken");
+                    finishedProject = projectList.FindAll(x => x.Status == "Completed");
+                }
+                resultList = new APIresult { users = constructorRList, filteredProjects1 = registeredProject, filteredProjects2 = finishedProject , unregisteredUser = constructorUnList};
+                return View(resultList);
+            }
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> UpdateConstructorStatus(String id)
+        {
+            return BadRequest(id);
         }
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SendPromo(string promoMessage)

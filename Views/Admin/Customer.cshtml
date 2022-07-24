@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CASS___Construction_Assistance.Models.APIresult
+
+@{
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
 }
@@ -45,198 +47,121 @@
         <div class="tab-content">
             <!-- Customer List -->
             <div class="tab-pane fade show active" id="navs-pills-justified-customer" role="tabpanel">
-                <h5 class="card-header">Constructor List</h5>
+                <h5 class="card-header">Customer List</h5>
                 <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
                     <table class="table" id="test1">
                         <thead>
                             <tr class="text-nowrap">
-                                <th>Id</th>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Status</th>
+                                <th>Phone</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
+                            @{
+                                var count = 0;
+                            }
+                            @foreach (var APIusers in Model.users)
+                            {
+                                count = count + 1;
+                                <tr>
+                                    <th scope="row">@count</th>
+                                    <td>@APIusers.Name</td>
+                                    <td>@APIusers.Email</td>
+                                    <td>@APIusers.Phone</td>
+                                    <td style="text-align: center"><button id="edit-@APIusers.Id" class="btn btn-outline-danger py-2 px-4">Delete Account</button></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
             <!-- Registered Order -->
             <div class="tab-pane fade" id="navs-pills-justified-registered" role="tabpanel">
-                <h5 class="card-header">Constructor List</h5>
+                <h5 class="card-header">Registered Order</h5>
                 <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
                     <table class="table">
                         <thead>
                             <tr class="text-nowrap">
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>#</th>
+                                <th>Customer Name</th>
+                                <th>Project Name</th>
+                                <th>Constructor Name</th>
                                 <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
-                            </tr>
-                            </tr>
+                            @{
+                                count = 0;
+                            }
+                            @foreach (var Project in Model.filteredProjects1)
+                            {
+                                count = count + 1;
+                                <tr>
+                                    <th scope="row">@count</th>
+                                    <td>@Project.Customer_Name</td>
+                                    <td>@Project.Name</td>
+                                    <td>@Project.Constructor_Name</td>
+                                    @{
+                                        if (Project.Status == "Pending")
+                                        {
+                                            <td><span class="badge bg-label-warning me-1">@Project.Status</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td><span class="badge bg-label-primary me-1">@Project.Status</span></td>
+                                        }
+                                    }
+                                    <td style="text-align: center">
+                                        <button data-bs-toggle="modal" data-bs-target="#detailsModal-@Project.Id" class="btn btn-outline-primary py-2 px-4">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
             <!-- Finished Order -->
             <div class="tab-pane fade" id="navs-pills-justified-finished" role="tabpanel">
-                <h5 class="card-header">Constructor List</h5>
+
+                <h5 class="card-header">Finished Order</h5>
                 <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
                     <table class="table">
                         <thead>
                             <tr class="text-nowrap">
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>#</th>
+                                <th>Customer Name</th>
+                                <th>Project Name</th>
+                                <th>Constructor Name</th>
                                 <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Renaldy Prasetio</td>
-                                <td>renaldy@cass.com</td>
-                                <td>On Project</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Howard Halim</td>
-                                <td>halim.howard@cass.com</td>
-                                <td>Available</td>
-                            </tr>
+                            @{
+                                count = 0;
+                            }
+                            @foreach (var Project in Model.filteredProjects2)
+                            {
+                                count = count + 1;
+                                <tr>
+                                    <th scope="row">@count</th>
+                                    <td>@Project.Customer_Name</td>
+                                    <td>@Project.Name</td>
+                                    <td>@Project.Constructor_Name</td>
+                                    <td><span class="badge bg-label-success me-1">@Project.Status</span></td>
+                                    <td style="text-align: center">
+                                        <button data-bs-toggle="modal" data-bs-target="#detailsModal-@Project.Id" class="btn btn-outline-primary py-2 px-4">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -250,6 +175,7 @@
        data-bs-target="#largeModal">Send Promo</a>
 </div>
 
+<!-- Send Promo Modal -->
 <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -270,6 +196,7 @@
                     </div>
 
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Close
@@ -282,3 +209,95 @@
     </div>
 </div>
 
+
+<!-- View Registered Details Modal -->
+@foreach (var Project in Model.filteredProjects1)
+{
+    <div class="modal fade" id="detailsModal-@Project.Id" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Details</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <hr class="mx-4"/>
+                <div class="modal-body">
+                    <div class="row px-4">
+                        <img src="@Project.ImageUrl" height="200" style="object-fit: contain; text-align: center" />
+                        <div class="col-4 my-5">
+                            <h6>Project Name</h6>
+                            <h6>Project Description</h6>
+                            <h6>Project Price</h6>
+                            <h6>Project Location</h6>
+                            <h6>Project Status</h6>
+                            <h6>Constructor Name</h6>
+                            <h6>Customer Name</h6>
+                        </div>
+                        <div class="col-6 my-5">
+                            <h6>@Project.Name</h6>
+                            <h6>@Project.Description</h6>
+                            <h6>MYR @Project.Price</h6>
+                            <h6>@Project.Location</h6>
+                            @{
+                                if (Project.Status == "Pending")
+                                {
+                                    <h6 class="badge bg-label-warning me-1">@Project.Status</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="badge bg-label-primary me-1">@Project.Status</h6>
+                                }
+                            }
+                            <h6>@Project.Constructor_Name</h6>
+                            <h6>@Project.Customer_Name</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- View Finished Details Modal -->
+@foreach (var Project in Model.filteredProjects2)
+{
+    <div class="modal fade" id="detailsModal-@Project.Id" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Customer Details</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row px-4">
+                        <img src="@Project.ImageUrl" height="200" style="object-fit: contain; text-align: center" />
+                        <div class="col-4 my-5">
+                            <h6>Project Name</h6>
+                            <h6>Project Description</h6>
+                            <h6>Project Price</h6>
+                            <h6>Project Location</h6>
+                            <h6>Project Status</h6>
+                            <h6>Constructor Name</h6>
+                            <h6>Customer Name</h6>
+                        </div>
+                        <div class="col-6 my-5">
+                            <h6>@Project.Name</h6>
+                            <h6>@Project.Description</h6>
+                            <h6>MYR @Project.Price</h6>
+                            <h6>@Project.Location</h6>
+                            <h6 class="badge bg-label-success me-1">@Project.Status</h6>
+                            <h6>@Project.Constructor_Name</h6>
+                            <h6>@Project.Customer_Name</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
