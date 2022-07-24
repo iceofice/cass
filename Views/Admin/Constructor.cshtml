@@ -44,6 +44,7 @@
             </li>
         </ul>
         <div class="tab-content">
+<<<<<<< Updated upstream
             <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
                 <p>
                     Icing pastry pudding oat cake. Lemon drops cotton candy caramels cake caramels sesame snaps
@@ -54,6 +55,85 @@
                     jelly-o jelly-o ice cream jelly beans candy canes cake bonbon. Cookie jelly beans marshmallow
                     jujubes sweet.
                 </p>
+=======
+            <!-- Register Confirmation List -->
+            <div class="tab-pane fade show active m-0 p-0" id="navs-pills-justified-registerConfirm" role="tabpanel">
+                <h5 class="card-header">Registration Confirmation List</h5>
+                <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
+                    <table class="table">
+                        <thead>
+                            <tr class="text-nowrap">
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var count = 0;
+                            }
+                            @foreach (var APIusers in Model.unregisteredUser)
+                            {
+                                count = count + 1;
+                                <tr>
+                                    <form asp-controller="Admin" asp-action="UpdateConstructorStatus">
+                                    <th scope="row">@count</th>
+                                    <td>@APIusers.Name</td>
+                                    <td>@APIusers.Email</td>
+                                    <td>@APIusers.Phone</td>
+
+                                    <td style="text-align: center">
+                                        <button id="edit-@APIusers.Id" class="btn btn-outline-success py-2 px-4" type="submit">
+                                            Accept
+                                        </button>
+                                    </td>
+                                    <input type="hidden" name="id" value="@APIusers.Id" />
+                                    </form>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Constructor List -->
+            <div class="tab-pane fade m-0 p-0" id="navs-pills-justified-constructor" role="tabpanel">
+                <h5 class="card-header">Constructor List</h5>
+                <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
+                    <table class="table">
+                        <thead>
+                            <tr class="text-nowrap">
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                count = 0;
+                            }
+                            @foreach (var APIusers in Model.users)
+                            {
+                                count = count + 1;
+                                <form asp-action="DeleteConstructor" asp-controller="Admin">
+                                    <tr>
+                                        <th scope="row">@count</th>
+                                        <td>@APIusers.Name</td>
+                                        <td>@APIusers.Email</td>
+                                        <td>@APIusers.Phone</td>
+                                        <td style="text-align: center"><button type="submit" id="edit-@APIusers.Id" class="btn btn-outline-danger py-2 px-4">Delete Account</button></td>
+                                        <input type="hidden" name="id" value="@APIusers.Id"/>
+                                    </tr>
+                                </form>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+>>>>>>> Stashed changes
             </div>
             <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
                 <p>

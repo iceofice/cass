@@ -3,12 +3,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+<<<<<<< Updated upstream
+=======
+using System.Net.Http;
+using Newtonsoft.Json;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Identity;
+using CASS___Construction_Assistance.Areas.Identity.Data;
+>>>>>>> Stashed changes
 
 namespace CASS___Construction_Assistance.Controllers
 {
     public class AdminController : Controller
     {
+<<<<<<< Updated upstream
         public IActionResult Index()
+=======
+        private readonly Data.CassContext _cassContext;
+
+        private readonly UserManager<User> _userManager;
+        public AdminController(Data.CassContext context, UserManager<User> userManager)
+        {
+            _cassContext = context;
+            _userManager = userManager;
+        }
+
+        private List<string> getCredentialInfo()
+>>>>>>> Stashed changes
         {
             return View();
         }
@@ -19,7 +43,92 @@ namespace CASS___Construction_Assistance.Controllers
         }
         public IActionResult Constructor()
         {
+<<<<<<< Updated upstream
             return View();
+=======
+            APIresult resultList;
+            List<List<Project>> rawProject = new List<List<Project>>();
+            List<List<APIusers>> rawUsers = new List<List<APIusers>>();
+            List<APIusers> userList = new List<APIusers>();
+            List<APIusers> constructorRList = new List<APIusers>();
+            List<APIusers> constructorUnList = new List<APIusers>();
+            List<Project> projectList = new List<Project>();
+            List<Project> finishedProject = new List<Project>();
+            List<Project> registeredProject = new List<Project>();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://px39op01o5.execute-api.us-east-1.amazonaws.com/userList"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    rawUsers = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
+
+                    userList = rawUsers.First();
+                    constructorRList = userList.FindAll(x => x.Role == "Constructor" && x.EmailConfirmed == true);
+                    constructorUnList = userList.FindAll(x => x.Role == "Constructor" && x.EmailConfirmed == false);
+                }
+                using (var response = await httpClient.GetAsync("https://4f4j3o96c4.execute-api.us-east-1.amazonaws.com/projectList"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    rawProject = JsonConvert.DeserializeObject<List<List<Project>>>(apiResponse);
+
+                    projectList = rawProject.First();
+                    registeredProject = projectList.FindAll(x => x.Status == "Taken");
+                    finishedProject = projectList.FindAll(x => x.Status == "Completed");
+                }
+                resultList = new APIresult { users = constructorRList, filteredProjects1 = registeredProject, filteredProjects2 = finishedProject , unregisteredUser = constructorUnList};
+                return View(resultList);
+            }
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> UpdateConstructorStatus(String id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            user.EmailConfirmed = true;
+            var result = await _userManager.UpdateAsync(user);
+            return RedirectToAction(nameof(Constructor));
+        }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SendPromo(string promoMessage)
+        {
+
+            List<string> KeyList = getCredentialInfo();
+            var client = new AmazonSimpleNotificationServiceClient(KeyList[0], KeyList[1], KeyList[2], Amazon.RegionEndpoint.USEast1);
+            var request = new ListTopicsRequest();
+            var response = new ListTopicsResponse();
+            var topics = "arn:aws:sns:us-east-1:668220914140:EmailSubs";
+            
+
+            await client.PublishAsync(new PublishRequest
+            {
+                Subject = "CASS --- PROMO",
+                Message = promoMessage, 
+                TopicArn = topics
+            });
+
+            return RedirectToAction(nameof(Customer));
+
+
+>>>>>>> Stashed changes
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> DeleteCustomer(String id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            
+            var result = await _userManager.DeleteAsync(user);
+            return RedirectToAction(nameof(Customer));
+        }
+        public async Task<IActionResult> DeleteConstructor(String id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            
+            var result = await _userManager.DeleteAsync(user);
+            return RedirectToAction(nameof(Constructor));
         }
     }
 }

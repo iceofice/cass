@@ -43,6 +43,7 @@
             </li>
         </ul>
         <div class="tab-content">
+<<<<<<< Updated upstream
             <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
                 <p>
                     Icing pastry pudding oat cake. Lemon drops cotton candy caramels cake caramels sesame snaps
@@ -53,6 +54,44 @@
                     jelly-o jelly-o ice cream jelly beans candy canes cake bonbon. Cookie jelly beans marshmallow
                     jujubes sweet.
                 </p>
+=======
+            <!-- Customer List -->
+            <div class="tab-pane fade show active" id="navs-pills-justified-customer" role="tabpanel">
+                <h5 class="card-header">Customer List</h5>
+                <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
+                    <table class="table" id="test1">
+                        <thead>
+                            <tr class="text-nowrap">
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var count = 0;
+                            }
+                            @foreach (var APIusers in Model.users)
+                            {
+                                count = count + 1;
+                                <tr>
+                                    <form asp-action="DeleteCustomer" asp-controller="Admin">
+
+                                        <th scope="row">@count</th>
+                                        <td>@APIusers.Name</td>
+                                        <td>@APIusers.Email</td>
+                                        <td>@APIusers.Phone</td>
+                                        <td style="text-align: center"><button type ="submit" id="edit-@APIusers.Id" class="btn btn-outline-danger py-2 px-4">Delete Account</button></td>
+                                        <input type="hidden" name="id" value="@APIusers.Id"/>
+                                    </form>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+>>>>>>> Stashed changes
             </div>
             <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
                 <p>
@@ -81,6 +120,7 @@
 </div>
 
 
+<<<<<<< Updated upstream
 <div class="col-lg-5 mb-4 align-self-start">
     <div class="card h-100">
         `
@@ -99,9 +139,38 @@
                     <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
                     <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
                     <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+=======
+<div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form asp-action="SendPromo" asp-controller="Admin">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel3">Send Promo</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nameLarge" class="form-label">Message</label>
+                            <textarea type="text" id="nameLarge" class="form-control" placeholder="Enter Promo Message" rows="4" name="promoMessage"> </textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">Send Promo!</button>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>
+<<<<<<< Updated upstream
         <div class="card-body">
             <ul class="p-0 m-0">
                 <li class="d-flex mb-4 pb-1">
@@ -112,6 +181,37 @@
                         <div class="me-2">
                             <small class="text-muted d-block mb-1">{user}</small>
                             <h6 class="mb-0">{text}</h6>
+=======
+
+    </div>
+</div>
+
+<!-- View Registered Details Modal -->
+@foreach (var Project in Model.filteredProjects1)
+{
+    <div class="modal fade" id="detailsModal-@Project.Id" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Details</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <hr class="mx-4" />
+                <div class="modal-body">
+                    <div class="row px-4">
+                        <img src="@Project.ImageUrl" height="200" style="object-fit: contain; text-align: center" />
+                        <div class="col-4 my-5">
+                            <h6>Project Name</h6>
+                            <h6>Project Description</h6>
+                            <h6>Project Price</h6>
+                            <h6>Project Location</h6>
+                            <h6>Project Status</h6>
+                            <h6>Constructor Name</h6>
+                            <h6>Customer Name</h6>
+>>>>>>> Stashed changes
                         </div>
                         <div class="user-progress d-flex align-items-center gap-1">
                             <h6 class="mb-0">{date}</h6>
