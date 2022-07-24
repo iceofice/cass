@@ -8,7 +8,7 @@ namespace CASS___Construction_Assistance.Models
     public class APIresult
     {
         public List<APIusers> users { get; set; }
-        public List<Project> projects { get; set; }
-        public List<Project> finishedProjects { get; set; }
+        public List<Project> filteredProjects1 { get; set; }
+        public List<Project> filteredProjects2 { get; set; }
     }
 }

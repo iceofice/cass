@@ -47,7 +47,7 @@
         <div class="tab-content">
             <!-- Customer List -->
             <div class="tab-pane fade show active" id="navs-pills-justified-customer" role="tabpanel">
-                <h5 class="card-header">Constructor List</h5>
+                <h5 class="card-header">Customer List</h5>
                 <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
                     <table class="table" id="test1">
                         <thead>
@@ -56,6 +56,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,6 +71,7 @@
                                     <td>@APIusers.Name</td>
                                     <td>@APIusers.Email</td>
                                     <td>@APIusers.Phone</td>
+                                    <td style="text-align: center"><button id="edit-@APIusers.Id" class="btn btn-outline-danger py-2 px-4">Delete Account</button></td>
                                 </tr>
                             }
                         </tbody>
@@ -84,28 +86,38 @@
                         <thead>
                             <tr class="text-nowrap">
                                 <th>#</th>
-                                <th>Project Name</th>
                                 <th>Customer Name</th>
+                                <th>Project Name</th>
                                 <th>Constructor Name</th>
                                 <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @{
                                 count = 0;
                             }
-                            @foreach (var APIusers in Model.projects)
+                            @foreach (var APIusers in Model.filteredProjects1)
                             {
                                 count = count + 1;
                             <tr>
                                 <th scope="row">@count</th>
-                                <td>@APIusers.Name</td>
                                 <td>@APIusers.Customer_Name</td>
+                                <td>@APIusers.Name</td>
                                 <td>@APIusers.Constructor_Name</td>
-                                <td>@APIusers.Status</td>
+                                @{
+                                    if (APIusers.Status == "Pending")
+                                    {
+                                        <td><span class="badge bg-label-warning me-1">@APIusers.Status</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="badge bg-label-primary me-1">@APIusers.Status</span></td>
+                                    }
+                                }
+                                <td style="text-align: center"><button id="view-@APIusers.Id" class="btn btn-outline-primary py-2 px-4">View Details</button></td>
                             </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -116,22 +128,32 @@
                 <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
                     <table class="table">
                         <thead>
-                            <tbody>
-                                @{
-                                    count = 0;
-                                }
-                                @foreach (var APIusers in Model.finishedProjects)
-                                {
-                                    count = count + 1;
-                                    <tr>
-                                        <th scope="row">@count</th>
-                                        <td>@APIusers.Name</td>
-                                        <td>@APIusers.Customer_Name</td>
-                                        <td>@APIusers.Constructor_Name</td>
-                                        <td>@APIusers.Status</td>
-                                    </tr>
-                                }
-                            </tbody>
+                            <tr class="text-nowrap">
+                                <th>#</th>
+                                <th>Customer Name</th>
+                                <th>Project Name</th>
+                                <th>Constructor Name</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                count = 0;
+                            }
+                            @foreach (var APIusers in Model.filteredProjects2)
+                            {
+                                count = count + 1;
+                                <tr>
+                                    <th scope="row">@count</th>
+                                    <td>@APIusers.Customer_Name</td>
+                                    <td>@APIusers.Name</td>
+                                    <td>@APIusers.Constructor_Name</td>
+                                    <td>@APIusers.Status</td>
+                                    <td style="text-align: center"><button id="view-@APIusers.Id" class="btn btn-outline-primary py-2 px-4">View Details</button></td>
+                                </tr>
+                            }
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -144,11 +166,42 @@
        data-bs-target="#largeModal">Send Promo</a>
 </div>
 
+<!-- Send Promo Modal -->
 <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel3">Send Promo</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="nameLarge" class="form-label">Message</label>
+                        <textarea type="text" id="nameLarge" class="form-control" placeholder="Enter Promo Message" rows="4"> </textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">Send Promo!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Details Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Customer Details</h5>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"

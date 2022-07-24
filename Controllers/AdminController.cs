@@ -20,9 +20,9 @@ namespace CASS___Construction_Assistance.Controllers
             List<List<Project>> rawProject = new List<List<Project>>();
             List<List<APIusers>> rawUsers = new List<List<APIusers>>();
             List<APIusers> userList = new List<APIusers>();
-            List<APIusers> CustomerList = new List<APIusers>();
-            List<APIusers> ConstructorList = new List<APIusers>();
-            List<Project> ProjectList = new List<Project>();
+            List<APIusers> customerList = new List<APIusers>();
+            List<APIusers> constructorList = new List<APIusers>();
+            List<Project> projectList = new List<Project>();
             List<Project> finishedProject = new List<Project>();
 
             using (var httpClient = new HttpClient())
@@ -33,17 +33,17 @@ namespace CASS___Construction_Assistance.Controllers
                     rawUsers = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
 
                     userList = rawUsers.First();
-                    CustomerList = userList.FindAll(x => x.Role == "Customer");
-                    ConstructorList = userList.FindAll(x => x.Role == "Constructor");
+                    customerList = userList.FindAll(x => x.Role == "Customer");
+                    constructorList = userList.FindAll(x => x.Role == "Constructor");
                 }
                 using (var response = await httpClient.GetAsync("https://4f4j3o96c4.execute-api.us-east-1.amazonaws.com/projectList"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     rawProject = JsonConvert.DeserializeObject<List<List<Project>>>(apiResponse);
 
-                    ProjectList = rawProject.First();
+                    projectList = rawProject.First().FindAll(x => x.Status != "Completed");
                 }
-                resultList = new List<int>(){ CustomerList.Count, ConstructorList.Count, ProjectList.Count };
+                resultList = new List<int>(){ customerList.Count, constructorList.Count, projectList.Count };
                 return View(resultList);
             }
             
@@ -56,9 +56,10 @@ namespace CASS___Construction_Assistance.Controllers
             List<List<Project>> rawProject = new List<List<Project>>();
             List<List<APIusers>> rawUsers = new List<List<APIusers>>();
             List<APIusers> userList = new List<APIusers>();
-            List<APIusers> CustomerList = new List<APIusers>();
+            List<APIusers> customerList = new List<APIusers>();
             List<Project> projectList = new List<Project>();
             List<Project> finishedProject = new List<Project>();
+            List<Project> registeredProject = new List<Project>();
 
             using (var httpClient = new HttpClient())
             {
@@ -68,7 +69,7 @@ namespace CASS___Construction_Assistance.Controllers
                     rawUsers = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
 
                     userList = rawUsers.First();
-                    CustomerList = userList.FindAll(x => x.Role == "Customer");
+                    customerList = userList.FindAll(x => x.Role == "Customer");
                 }
                 using (var response = await httpClient.GetAsync("https://4f4j3o96c4.execute-api.us-east-1.amazonaws.com/projectList"))
                 {
@@ -76,9 +77,10 @@ namespace CASS___Construction_Assistance.Controllers
                     rawProject = JsonConvert.DeserializeObject<List<List<Project>>>(apiResponse);
 
                     projectList = rawProject.First();
+                    registeredProject = projectList.FindAll(x => x.Status != "Completed");
                     finishedProject = projectList.FindAll(x => x.Status == "Completed");
                 }
-                resultList = new APIresult { users = CustomerList, projects = projectList, finishedProjects = projectList };
+                resultList = new APIresult { users = customerList, filteredProjects1 = registeredProject, filteredProjects2 = finishedProject };
                 return View(resultList);
             }
         }
@@ -86,12 +88,14 @@ namespace CASS___Construction_Assistance.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Constructor()
         {
-            List<List<APIusers>> resultList;
-            List<List<APIusers>> rawProject = new List<List<APIusers>>();
+            APIresult resultList;
+            List<List<Project>> rawProject = new List<List<Project>>();
             List<List<APIusers>> rawUsers = new List<List<APIusers>>();
             List<APIusers> userList = new List<APIusers>();
-            List<APIusers> ConstructorList = new List<APIusers>();
-            List<APIusers> projectList = new List<APIusers>();
+            List<APIusers> constructorList = new List<APIusers>();
+            List<Project> projectList = new List<Project>();
+            List<Project> finishedProject = new List<Project>();
+            List<Project> registeredProject = new List<Project>();
 
             using (var httpClient = new HttpClient())
             {
@@ -101,19 +105,18 @@ namespace CASS___Construction_Assistance.Controllers
                     rawUsers = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
 
                     userList = rawUsers.First();
-                    ConstructorList = userList.FindAll(x => x.Role == "Constructor");
+                    constructorList = userList.FindAll(x => x.Role == "Constructor");
                 }
                 using (var response = await httpClient.GetAsync("https://4f4j3o96c4.execute-api.us-east-1.amazonaws.com/projectList"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    rawProject = JsonConvert.DeserializeObject<List<List<APIusers>>>(apiResponse);
+                    rawProject = JsonConvert.DeserializeObject<List<List<Project>>>(apiResponse);
 
                     projectList = rawProject.First();
+                    registeredProject = projectList.FindAll(x => x.Status == "Taken");
+                    finishedProject = projectList.FindAll(x => x.Status == "Completed");
                 }
-                resultList = new List<List<APIusers>> {
-                    ConstructorList,
-                    projectList,
-                };
+                resultList = new APIresult { users = constructorList, filteredProjects1 = registeredProject, filteredProjects2 = finishedProject };
                 return View(resultList);
             }
         }
