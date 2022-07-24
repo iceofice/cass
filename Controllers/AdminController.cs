@@ -151,7 +151,6 @@ namespace CASS___Construction_Assistance.Controllers
         public async Task<IActionResult> SendPromo(string promoMessage)
         {
 
-            
             List<string> KeyList = getCredentialInfo();
             var client = new AmazonSimpleNotificationServiceClient(KeyList[0], KeyList[1], KeyList[2], Amazon.RegionEndpoint.USEast1);
             var request = new ListTopicsRequest();
