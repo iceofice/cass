@@ -15,9 +15,20 @@
                         class="nav-link active"
                         role="tab"
                         data-bs-toggle="tab"
+                        data-bs-target="#navs-pills-justified-registerConfirm"
+                        aria-controls="navs-pills-justified-registerConfirm"
+                        aria-selected="true">
+                    <i class="tf-icons bx bx-check-square"></i> Register Confirmation
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button"
+                        class="nav-link"
+                        role="tab"
+                        data-bs-toggle="tab"
                         data-bs-target="#navs-pills-justified-constructor"
                         aria-controls="navs-pills-justified-constructor"
-                        aria-selected="true">
+                        aria-selected="false">
                     <i class="tf-icons bx bx-briefcase-alt-2"></i> Constructor
 
                 </button>
@@ -46,9 +57,9 @@
             </li>
         </ul>
         <div class="tab-content">
-            <!-- Constructor List -->
-            <div class="tab-pane fade show active m-0 p-0" id="navs-pills-justified-constructor" role="tabpanel">
-                <h5 class="card-header">Constructor List</h5>
+            <!-- Register Confirmation List -->
+            <div class="tab-pane fade show active m-0 p-0" id="navs-pills-justified-registerConfirm" role="tabpanel">
+                <h5 class="card-header">Registration Confirmation List</h5>
                 <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
                     <table class="table">
                         <thead>
@@ -64,6 +75,44 @@
                             @{
                                 var count = 0;
                             }
+                            @foreach (var APIusers in Model.unregisteredUser)
+                            {
+                                count = count + 1;
+                                <tr>
+                                    <form asp-controller="Admin" asp-action="UpdateConstructorStatus">
+                                    <th scope="row">@count</th>
+                                    <td>@APIusers.Name</td>
+                                    <td>@APIusers.Email</td>
+                                    <td>@APIusers.Phone</td>
+
+                                    <td style="text-align: center">
+                                        <button id="edit-@APIusers.Id" class="btn btn-outline-success py-2 px-4" type="submit">
+                                            Accept
+                                        </button>
+                                    </td>
+                                    <input type="hidden" name="id" value="@APIusers.Id" />
+                                    </form>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Constructor List -->
+            <div class="tab-pane fade m-0 p-0" id="navs-pills-justified-constructor" role="tabpanel">
+                <h5 class="card-header">Constructor List</h5>
+                <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
+                    <table class="table">
+                        <thead>
+                            <tr class="text-nowrap">
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             @foreach (var APIusers in Model.users)
                             {
                                 count = count + 1;
@@ -109,7 +158,11 @@
                                     <td>@Project.Price</td>
                                     <td>@Project.Location</td>
                                     <td>@Project.Customer_Name</td>
-                                    <td style="text-align: center"><button id="view-@Project.Id" class="btn btn-outline-primary py-2 px-4">View Details</button></td>
+                                    <td style="text-align: center">
+                                        <button data-bs-toggle="modal" data-bs-target="#detailsModal-@Project.Id" class="btn btn-outline-primary py-2 px-4">
+                                            View Details
+                                        </button>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -146,7 +199,11 @@
                                     <td>@Project.Price</td>
                                     <td>@Project.Location</td>
                                     <td>@Project.Customer_Name</td>
-                                    <td style="text-align: center"><button id="view-@Project.Id" class="btn btn-outline-primary py-2 px-4">View Details</button></td>
+                                    <td style="text-align: center">
+                                        <button data-bs-toggle="modal" data-bs-target="#detailsModal-@Project.Id" class="btn btn-outline-primary py-2 px-4">
+                                            View Details
+                                        </button>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -156,46 +213,95 @@
         </div>
     </div>
 </div>
-<div class="col-xl-12">
-    <div class="card p-4">
-        <h5 class="card-header">Registration Confirmation</h5>
-        <div class="table-responsive text-nowrap" style="height: 500px; overflow: auto">
-            <table class="table">
 
-                <thead>
-                    <tr class="text-nowrap">
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        count = 0;
-                    }
-                    @foreach (var APIusers in Model.unregisteredUser)
-                    {
-                        count = count + 1;
-                    <tr>
-                        <form asp-controller="Admin" asp-action="UpdateConstructorStatus">
-                            <th scope="row">@count</th>
-                            <td>@APIusers.Name</td>
-                            <td>@APIusers.Email</td>
-                            <td>@APIusers.Phone</td>
-
-                            <td style="text-align: center">
-                                <button id="edit-@APIusers.Id" class="btn btn-outline-success py-2 px-4" type="submit">
-                                    Accept
-                                </button>
-                            </td>
-                            <input type="hidden" name="id" value="@APIusers.Id" />
-                        </form>
-                    </tr>
-                    }
-                </tbody>
-            </table>
+<!-- View Registered Details Modal -->
+@foreach (var Project in Model.filteredProjects1)
+{
+    <div class="modal fade" id="detailsModal-@Project.Id" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Details</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <hr class="mx-4" />
+                <div class="modal-body">
+                    <div class="row px-4">
+                        <img src="@Project.ImageUrl" height="200" style="object-fit: contain; text-align: center" />
+                        <div class="col-4 my-5">
+                            <h6>Project Name</h6>
+                            <h6>Project Description</h6>
+                            <h6>Project Price</h6>
+                            <h6>Project Location</h6>
+                            <h6>Project Status</h6>
+                            <h6>Constructor Name</h6>
+                            <h6>Customer Name</h6>
+                        </div>
+                        <div class="col-6 my-5">
+                            <h6>@Project.Name</h6>
+                            <h6>@Project.Description</h6>
+                            <h6>MYR @Project.Price</h6>
+                            <h6>@Project.Location</h6>
+                            @{
+                                if (Project.Status == "Pending")
+                                {
+                                    <h6 class="badge bg-label-warning me-1">@Project.Status</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="badge bg-label-primary me-1">@Project.Status</h6>
+                                }
+                            }
+                            <h6>@Project.Constructor_Name</h6>
+                            <h6>@Project.Customer_Name</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+}
+
+<!-- View Finished Details Modal -->
+@foreach (var Project in Model.filteredProjects2)
+{
+    <div class="modal fade" id="detailsModal-@Project.Id" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Customer Details</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row px-4">
+                        <img src="@Project.ImageUrl" height="200" style="object-fit: contain; text-align: center" />
+                        <div class="col-4 my-5">
+                            <h6>Project Name</h6>
+                            <h6>Project Description</h6>
+                            <h6>Project Price</h6>
+                            <h6>Project Location</h6>
+                            <h6>Project Status</h6>
+                            <h6>Constructor Name</h6>
+                            <h6>Customer Name</h6>
+                        </div>
+                        <div class="col-6 my-5">
+                            <h6>@Project.Name</h6>
+                            <h6>@Project.Description</h6>
+                            <h6>MYR @Project.Price</h6>
+                            <h6>@Project.Location</h6>
+                            <h6 class="badge bg-label-success me-1">@Project.Status</h6>
+                            <h6>@Project.Constructor_Name</h6>
+                            <h6>@Project.Customer_Name</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
