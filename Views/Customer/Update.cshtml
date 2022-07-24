@@ -42,12 +42,17 @@
 
                 @if (!Model.Status.Equals("Pending"))
                 {
-                    <p>Taken By: <a style="color:#d19c97!important;" asp-controller="Customer" asp-action="Update">Constructor</a></p>
+
+                <p>Taken By: @Model.Constructor_Name</p>
+                
                 }
                 <form asp-action="Update" enctype="multipart/form-data">
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="Status" />
                     <input type="hidden" asp-for="Constructor_Id" />
+                    <input type="hidden" asp-for="Constructor_Name" />
+                    <input type="hidden" asp-for="Customer_Id" />
+                    <input type="hidden" asp-for="Customer_Name" />
                     <input type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
                     <div class="control-group">
                         <input asp-for="Name" class="form-control" placeholder="Project Name" />

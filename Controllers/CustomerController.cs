@@ -157,7 +157,7 @@ namespace CASS___Construction_Assistance.Controllers
         [Authorize(Roles = "Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(String ImageUrl, List<IFormFile> images, int id, [Bind("Id,Status,Constructor_Id,Name,Location,Price,Description")] Project project)
+        public async Task<IActionResult> Update(String ImageUrl, List<IFormFile> images, int id, [Bind("Id,Status,Constructor_Id,Name,Location,Price,Description,Customer_Name,Customer_Id,Constructor_Name")] Project project)
         {
 
             if (id != project.Id)
